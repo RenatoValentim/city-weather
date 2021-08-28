@@ -1,3 +1,23 @@
-<p>
-  home works!
-</p>
+<main>
+  <header>
+    <div>
+      <h1>WEATHER</h1>
+      <h2>Select a City</h2>
+    </div>
+  </header>
+  <section>
+    <img src="../../../assets/images/world_white.png" alt="World icon">
+    <div>
+      <div>
+        <span><a [routerLink]="['/city', { cityName: 'Dallol' }]">Dallol</a></span>
+        <span><a [routerLink]="['/city', { cityName: 'Fairbanks'}]">Fairbanks</a></span>
+        <span><a [routerLink]="['/city', { cityName: 'London'}]">London</a></span>
+      </div>
+      <div>
+        <span><a [routerLink]="['/city', { cityName: 'Recife'}]">Recife</a></span>
+        <span><a [routerLink]="['/city', { cityName: 'Vancouver'}]">Vancouver</a></span>
+        <span><a [routerLink]="['/city', { cityName: 'Yakutsk'}]">Yakutsk</a></span>
+      </div>
+    </div>
+  </section>
+</main>
