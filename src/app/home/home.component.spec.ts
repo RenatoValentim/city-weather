@@ -10,7 +10,7 @@ describe('HomeComponent', () => {
   let component: HomeComponent;
   let fixture: ComponentFixture<HomeComponent>;
   let routerLinks: RouterLinkDirectiveStub[];
-  let linkDes: DebugElement[];
+  let linkDebugElements: DebugElement[];
 
   beforeEach(
     waitForAsync(() => {
@@ -26,14 +26,13 @@ describe('HomeComponent', () => {
     component = fixture.componentInstance;
     fixture.detectChanges();
 
-    // find DebugElements with an attached RouterLinkStubDirective
-    linkDes = fixture.debugElement.queryAll(
+    linkDebugElements = fixture.debugElement.queryAll(
       By.directive(RouterLinkDirectiveStub)
     );
 
-    // get attached link directive instances
-    // using each DebugElement's injector
-    routerLinks = linkDes.map((de) => de.injector.get(RouterLinkDirectiveStub));
+    routerLinks = linkDebugElements.map((debugElement) =>
+      debugElement.injector.get(RouterLinkDirectiveStub)
+    );
   });
 
   it('should create', () => {
@@ -94,11 +93,41 @@ describe('HomeComponent', () => {
 
   it('can get RouterLinks from template', () => {
     expect(routerLinks.length).toBe(6);
-    expect(routerLinks[0].linkParams).toEqual([ '/city', Object({ cityName: 'Dallol' }) ]);
-    expect(routerLinks[1].linkParams).toEqual([ '/city', Object({ cityName: 'Fairbanks' }) ]);
-    expect(routerLinks[2].linkParams).toEqual([ '/city', Object({ cityName: 'London' }) ]);
-    expect(routerLinks[3].linkParams).toEqual([ '/city', Object({ cityName: 'Recife' }) ]);
-    expect(routerLinks[4].linkParams).toEqual([ '/city', Object({ cityName: 'Vancouver' }) ]);
-    expect(routerLinks[5].linkParams).toEqual([ '/city', Object({ cityName: 'Yakutsk' }) ]);
+    expect(routerLinks[0].linkParams).toEqual([
+      '/city',
+      { cityName: 'Dallol' },
+    ]);
+    expect(routerLinks[1].linkParams).toEqual([
+      '/city',
+      { cityName: 'Fairbanks' },
+    ]);
+    expect(routerLinks[2].linkParams).toEqual([
+      '/city',
+      { cityName: 'London' },
+    ]);
+    expect(routerLinks[3].linkParams).toEqual([
+      '/city',
+      { cityName: 'Recife' },
+    ]);
+    expect(routerLinks[4].linkParams).toEqual([
+      '/city',
+      { cityName: 'Vancouver' },
+    ]);
+    expect(routerLinks[5].linkParams).toEqual([
+      '/city',
+      { cityName: 'Yakutsk' },
+    ]);
+  });
+
+  it('can click city link in template', () => {
+    const citiesLinkDeBugElement = linkDebugElements[1];
+    const citiesLink = routerLinks[1];
+
+    expect(citiesLink.navigatedTo).withContext('should not have navigated yet');
+
+    citiesLinkDeBugElement.triggerEventHandler('click', null);
+    fixture.detectChanges();
+
+    expect(citiesLink.navigatedTo).toEqual(['/city', { cityName: 'Fairbanks' }]);
   });
 });
