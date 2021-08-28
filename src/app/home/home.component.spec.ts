@@ -91,6 +91,12 @@ describe('HomeComponent', () => {
     expect(secondLineLinks?.item(2).textContent).toContain('Yakutsk');
   });
 
+  it('should display a correctly background color', () => {
+    fixture.detectChanges();
+    const compiled = fixture.debugElement.query(By.css('main')).nativeElement;
+    expect(getComputedStyle(compiled).backgroundColor).toEqual('rgb(0, 0, 0)');
+  });
+
   it('can get RouterLinks from template', () => {
     expect(routerLinks.length).toBe(6);
     expect(routerLinks[0].linkParams).toEqual([
@@ -128,6 +134,9 @@ describe('HomeComponent', () => {
     citiesLinkDeBugElement.triggerEventHandler('click', null);
     fixture.detectChanges();
 
-    expect(citiesLink.navigatedTo).toEqual(['/city', { cityName: 'Fairbanks' }]);
+    expect(citiesLink.navigatedTo).toEqual([
+      '/city',
+      { cityName: 'Fairbanks' },
+    ]);
   });
 });
