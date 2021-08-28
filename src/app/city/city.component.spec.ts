@@ -30,4 +30,10 @@ describe('CityComponent', () => {
   it('should not loading before ngOnInit', () => {
     expect(component.isLoading).toBeFalse();
   });
+
+  it('should NOT have city immediately after ngOnInit', () => {
+    fixture.detectChanges();
+
+    expect(component.city).toBeFalsy();
+  });
 });

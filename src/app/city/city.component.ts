@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { CityModel } from '../shared/models/city.model';
 
 @Component({
   selector: 'app-city',
@@ -7,6 +8,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CityComponent implements OnInit {
   isLoading = false;
+  city!: CityModel;
 
   constructor() {}
 
