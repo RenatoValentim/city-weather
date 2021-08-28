@@ -1,5 +1,5 @@
 /* tslint:disable:no-unused-variable */
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { DebugElement } from '@angular/core';
 
@@ -9,7 +9,7 @@ describe('CityComponent', () => {
   let component: CityComponent;
   let fixture: ComponentFixture<CityComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ CityComponent ]
     })
@@ -24,5 +24,10 @@ describe('CityComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
+    expect(component.isLoading).toBeFalse();
+  });
+
+  it('should not loading before ngOnInit', () => {
+    expect(component.isLoading).toBeFalse();
   });
 });
