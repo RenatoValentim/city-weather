@@ -4,15 +4,18 @@ import { By } from '@angular/platform-browser';
 import { DebugElement } from '@angular/core';
 
 import { HomeComponent } from './home.component';
+import { RouterLinkDirectiveStub } from '../../testing/router-link-directive-stub';
 
 describe('HomeComponent', () => {
   let component: HomeComponent;
   let fixture: ComponentFixture<HomeComponent>;
+  let routerLinks: RouterLinkDirectiveStub[];
+  let linkDes: DebugElement[];
 
   beforeEach(
     waitForAsync(() => {
       TestBed.configureTestingModule({
-        declarations: [HomeComponent],
+        declarations: [HomeComponent, RouterLinkDirectiveStub],
         imports: [],
       }).compileComponents();
     })
@@ -22,6 +25,15 @@ describe('HomeComponent', () => {
     fixture = TestBed.createComponent(HomeComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
+
+    // find DebugElements with an attached RouterLinkStubDirective
+    linkDes = fixture.debugElement.queryAll(
+      By.directive(RouterLinkDirectiveStub)
+    );
+
+    // get attached link directive instances
+    // using each DebugElement's injector
+    routerLinks = linkDes.map((de) => de.injector.get(RouterLinkDirectiveStub));
   });
 
   it('should create', () => {
@@ -66,8 +78,6 @@ describe('HomeComponent', () => {
     const firstLineLinks = sectionDivs?.item(1).querySelectorAll('span a');
     const secondLineLinks = sectionDivs?.item(2).querySelectorAll('span a');
 
-    console.log(firstLineLinks);
-
     expect(header?.querySelector('div h1')?.textContent).toContain('WEATHER');
     expect(header?.querySelector('div h2')?.textContent).toContain(
       'Select a City'
@@ -80,5 +90,15 @@ describe('HomeComponent', () => {
     expect(secondLineLinks?.item(0).textContent).toContain('Recife');
     expect(secondLineLinks?.item(1).textContent).toContain('Vancouver');
     expect(secondLineLinks?.item(2).textContent).toContain('Yakutsk');
+  });
+
+  it('can get RouterLinks from template', () => {
+    expect(routerLinks.length).toBe(6);
+    expect(routerLinks[0].linkParams).toEqual([ '/city', Object({ cityName: 'Dallol' }) ]);
+    expect(routerLinks[1].linkParams).toEqual([ '/city', Object({ cityName: 'Fairbanks' }) ]);
+    expect(routerLinks[2].linkParams).toEqual([ '/city', Object({ cityName: 'London' }) ]);
+    expect(routerLinks[3].linkParams).toEqual([ '/city', Object({ cityName: 'Recife' }) ]);
+    expect(routerLinks[4].linkParams).toEqual([ '/city', Object({ cityName: 'Vancouver' }) ]);
+    expect(routerLinks[5].linkParams).toEqual([ '/city', Object({ cityName: 'Yakutsk' }) ]);
   });
 });
