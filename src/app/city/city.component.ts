@@ -12,5 +12,7 @@ export class CityComponent implements OnInit {
 
   constructor() {}
 
-  ngOnInit() { }
+  ngOnInit() {
+    this.isLoading = true;
+  }
 }

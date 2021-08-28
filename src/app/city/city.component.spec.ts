@@ -19,7 +19,6 @@ describe('CityComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(CityComponent);
     component = fixture.componentInstance;
-    fixture.detectChanges();
   });
 
   it('should create', () => {
@@ -33,7 +32,11 @@ describe('CityComponent', () => {
 
   it('should NOT have city immediately after ngOnInit', () => {
     fixture.detectChanges();
-
     expect(component.city).toBeFalsy();
+  });
+
+  it('should NOT have city immediately after ngOnInit', () => {
+    fixture.detectChanges();
+    expect(component.isLoading).toBeTrue();
   });
 });
