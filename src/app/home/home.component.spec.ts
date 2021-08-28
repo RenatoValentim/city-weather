@@ -29,7 +29,6 @@ describe('HomeComponent', () => {
   });
 
   it('should render a HTML structure', () => {
-    const fixture = TestBed.createComponent(HomeComponent);
     fixture.detectChanges();
     const compiled = fixture.nativeElement as HTMLElement;
     const header = compiled.querySelector('header');
@@ -58,7 +57,6 @@ describe('HomeComponent', () => {
   });
 
   it('should render a correct value into the HTML tags', () => {
-    const fixture = TestBed.createComponent(HomeComponent);
     fixture.detectChanges();
     const compiled = fixture.nativeElement as HTMLElement;
     const header = compiled.querySelector('header');
