@@ -81,7 +81,7 @@ describe('HomeComponent', () => {
     expect(header?.querySelector('div h2')?.textContent).toContain(
       'Select a City'
     );
-    expect(image?.src.includes('world_white.png')).toBeTruthy();
+    expect(image?.src.includes('world_white.png')).toBeTrue();
     expect(image?.getAttribute('alt')).toContain('World icon');
     expect(firstLineLinks?.item(0).textContent).toContain('Dallol');
     expect(firstLineLinks?.item(1).textContent).toContain('Fairbanks');
