@@ -17,5 +17,16 @@
         <h2>{{ city?.currentWeatherCondition?.condition }}</h2>
       </div>
     </header>
+    <section>
+      <div class="currentWeather" *ngIf="city?.currentWeatherCondition?.currentTemperature; else emptyValue">
+        <span class="currentWeatherValue">
+          {{ city?.currentWeatherCondition?.currentTemperature }}
+        </span>
+      </div>
+    </section>
   </section>
 </main>
+
+<ng-template #emptyValue>
+  <div>Unavailable</div>
+</ng-template>
