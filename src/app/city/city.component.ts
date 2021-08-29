@@ -3,7 +3,6 @@ import { Component, OnInit } from '@angular/core';
 import { CityModel } from '../shared/models/city.model';
 import { ActivatedRoute } from 'src/testing/activated-route-stub';
 import { CityService } from '../shared/services/city.service';
-import { CurrentWeatherConditionModel } from '../shared/models/current-weather-condition.model';
 import { delay } from 'rxjs/operators';
 import {
   ICON_NAME,
@@ -41,11 +40,18 @@ export class CityComponent implements OnInit {
     this.cityService
       .loadBy(this.cityName!)
       // TODO: Apenas para debug remover depois
-      // .pipe(delay(2000))
+      // .pipe(delay(1000))
       .subscribe((city) => {
         this.city = city;
         this.isLoading = false;
       });
+  }
+
+  private setColorBack(weatherConditionCode: number): boolean {
+    return !(
+      weatherConditionCode !== WEATHER_CONDITION_CODE.SNOW &&
+      Object.values(WEATHER_CONDITION_CODE).includes(weatherConditionCode!)
+    );
   }
 
   setBackgroundColorBy(weatherConditionCode: number | undefined): string {
@@ -73,7 +79,7 @@ export class CityComponent implements OnInit {
       return COLORS.DARK;
     }
 
-    if (weatherConditionCode !== WEATHER_CONDITION_CODE.SNOW) {
+    if (!this.setColorBack(weatherConditionCode!)) {
       return COLORS.WHITE;
     }
 
@@ -85,7 +91,7 @@ export class CityComponent implements OnInit {
   }
 
   setButtonArrowBy(weatherConditionCode: number | undefined): string {
-    if (weatherConditionCode !== WEATHER_CONDITION_CODE.SNOW) {
+    if (!this.setColorBack(weatherConditionCode!)) {
       return ICON_NAME.ARROW_LEFT_WHITE;
     }
 

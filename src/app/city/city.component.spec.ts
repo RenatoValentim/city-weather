@@ -6,11 +6,11 @@ import { Observable } from 'rxjs';
 import { ActivatedRoute } from 'src/testing/activated-route-stub';
 import { ActivatedRouteStub } from '../../testing/activated-route-stub';
 import { CITY_MOCK } from '../../testing/mocks/city.mock';
+import { LoadCity } from '../shared/interfaces/load-city';
 import { CityModel } from '../shared/models/city.model';
 import { CityService } from '../shared/services/city.service';
 import { CityComponent } from './city.component';
-import { delay } from 'rxjs/operators';
-import { LoadCity } from '../shared/interfaces/load-city';
+import { WEATHER_CONDITION_CODE } from './city.component.config';
 
 describe('CityComponent', () => {
   let component: CityComponent;
@@ -119,23 +119,61 @@ describe('CityComponent', () => {
     expect(img?.getAttribute('src')?.includes('world_dark.png')).toBeTrue();
   });
 
-  it('should display the correctly background-color to weather sunny', () => {
+  xit('should display the correctly background-color to weather code sunny', () => {
     fixture.detectChanges();
     getTestScheduler().flush();
     cityServiceSpy.loadBy('Recife');
     const compiled = fixture.nativeElement as HTMLElement;
     const main = compiled.querySelector('main');
     fixture.detectChanges();
-    const imagePath = main?.querySelector('section button img')?.getAttribute('src');
 
-    expect(imagePath?.includes('arrow_left_white.png')).toBeTrue()
     expect(getComputedStyle(main!).backgroundColor).toEqual(
       'rgb(87, 203, 220)'
     );
 
-    expect(getComputedStyle(main!).color).toEqual(
-      'rgb(255, 255, 255)'
+    expect(getComputedStyle(main!).color).toEqual('rgb(255, 255, 255)');
+  });
+
+  xit('should display the correctly background-color if code no register into the app', () => {
+    fixture.detectChanges();
+    getTestScheduler().flush();
+    cityServiceSpy.loadBy('Recife');
+    const compiled = fixture.nativeElement as HTMLElement;
+    const main = compiled.querySelector('main');
+
+    expect(getComputedStyle(main!).backgroundColor).toEqual(
+      'rgb(245, 245, 245)'
     );
+
+    expect(getComputedStyle(main!).color).toEqual('rgb(0, 0, 0)');
+  });
+
+  xit('should display the correctly arrow button to weather code sunny', () => {
+    fixture.detectChanges();
+    getTestScheduler().flush();
+    cityServiceSpy.loadBy('Recife');
+    const compiled = fixture.nativeElement as HTMLElement;
+    const main = compiled.querySelector('main');
+    fixture.detectChanges();
+    const imagePath = main
+      ?.querySelector('section button img')
+      ?.getAttribute('src');
+
+    expect(imagePath?.includes('arrow_left_white.png')).toBeTrue();
+  });
+
+  xit('should display the correctly arrow button if code no register into the app', () => {
+    fixture.detectChanges();
+    getTestScheduler().flush();
+    cityServiceSpy.loadBy('Recife');
+    const compiled = fixture.nativeElement as HTMLElement;
+    const main = compiled.querySelector('main');
+    fixture.detectChanges();
+    const imagePath = main
+      ?.querySelector('section button img')
+      ?.getAttribute('src');
+
+    expect(imagePath?.includes('arrow_left_dark.png')).toBeTrue();
   });
 
   xit('should display the correctly background-color to weather rain', () => {
@@ -145,35 +183,28 @@ describe('CityComponent', () => {
     const compiled = fixture.nativeElement as HTMLElement;
     const main = compiled.querySelector('main');
     fixture.detectChanges();
-    const imagePath = main?.querySelector('section button img')?.getAttribute('src');
+    const imagePath = main
+      ?.querySelector('section button img')
+      ?.getAttribute('src');
 
-    expect(imagePath?.includes('arrow_left_white.png')).toBeTrue()
-    expect(getComputedStyle(main!).backgroundColor).toEqual(
-      'rgb(60, 67, 83)'
-    );
+    expect(getComputedStyle(main!).backgroundColor).toEqual('rgb(60, 67, 83)');
 
-    expect(getComputedStyle(main!).color).toEqual(
-      'rgb(255, 255, 255)'
-    );
+    expect(getComputedStyle(main!).color).toEqual('rgb(255, 255, 255)');
   });
 
-  xit('should display the correctly background-color to weather snowy', () => {
+  it('should display the correctly background-color to weather snowy', () => {
     fixture.detectChanges();
     getTestScheduler().flush();
     cityServiceSpy.loadBy('Recife');
     const compiled = fixture.nativeElement as HTMLElement;
     const main = compiled.querySelector('main');
     fixture.detectChanges();
-    const imagePath = main?.querySelector('section button img')?.getAttribute('src');
 
-    expect(imagePath?.includes('arrow_left_dark.png')).toBeTrue()
     expect(getComputedStyle(main!).backgroundColor).toEqual(
       'rgb(166, 166, 166)'
     );
 
-    expect(getComputedStyle(main!).color).toEqual(
-      'rgb(255, 255, 255)'
-    );
+    expect(getComputedStyle(main!).color).toEqual('rgb(0, 0, 0)');
   });
 });
 
