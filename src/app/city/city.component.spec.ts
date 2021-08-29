@@ -119,15 +119,16 @@ describe('CityComponent', () => {
     expect(img?.getAttribute('src')?.includes('world_dark.png')).toBeTrue();
   });
 
-  // TODO: Não Esquecer de retirar o 'x' da frente do it
-  xit('should display the correctly background-color to weather sunny', () => {
+  it('should display the correctly background-color to weather sunny', () => {
     fixture.detectChanges();
     getTestScheduler().flush();
     cityServiceSpy.loadBy('Recife');
     const compiled = fixture.nativeElement as HTMLElement;
     const main = compiled.querySelector('main');
     fixture.detectChanges();
+    const imagePath = main?.querySelector('section button img')?.getAttribute('src');
 
+    expect(imagePath?.includes('arrow_left_white.png')).toBeTrue()
     expect(getComputedStyle(main!).backgroundColor).toEqual(
       'rgb(87, 203, 220)'
     );
@@ -144,7 +145,9 @@ describe('CityComponent', () => {
     const compiled = fixture.nativeElement as HTMLElement;
     const main = compiled.querySelector('main');
     fixture.detectChanges();
+    const imagePath = main?.querySelector('section button img')?.getAttribute('src');
 
+    expect(imagePath?.includes('arrow_left_white.png')).toBeTrue()
     expect(getComputedStyle(main!).backgroundColor).toEqual(
       'rgb(60, 67, 83)'
     );
@@ -154,14 +157,16 @@ describe('CityComponent', () => {
     );
   });
 
-  it('should display the correctly background-color to weather snowy', () => {
+  xit('should display the correctly background-color to weather snowy', () => {
     fixture.detectChanges();
     getTestScheduler().flush();
     cityServiceSpy.loadBy('Recife');
     const compiled = fixture.nativeElement as HTMLElement;
     const main = compiled.querySelector('main');
     fixture.detectChanges();
+    const imagePath = main?.querySelector('section button img')?.getAttribute('src');
 
+    expect(imagePath?.includes('arrow_left_dark.png')).toBeTrue()
     expect(getComputedStyle(main!).backgroundColor).toEqual(
       'rgb(166, 166, 166)'
     );

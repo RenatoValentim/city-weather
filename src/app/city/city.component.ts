@@ -5,7 +5,11 @@ import { ActivatedRoute } from 'src/testing/activated-route-stub';
 import { CityService } from '../shared/services/city.service';
 import { CurrentWeatherConditionModel } from '../shared/models/current-weather-condition.model';
 import { delay } from 'rxjs/operators';
-import { ICON_NAME, COLORS, WEATHER_CONDITION_CODE } from './city.component.config';
+import {
+  ICON_NAME,
+  COLORS,
+  WEATHER_CONDITION_CODE,
+} from './city.component.config';
 
 @Component({
   selector: 'app-city',
@@ -69,7 +73,7 @@ export class CityComponent implements OnInit {
       return COLORS.DARK;
     }
 
-    if (weatherConditionCode !== WEATHER_CONDITION_CODE.SUNNY) {
+    if (weatherConditionCode !== WEATHER_CONDITION_CODE.SNOW) {
       return COLORS.WHITE;
     }
 
@@ -80,7 +84,11 @@ export class CityComponent implements OnInit {
     this.location.back();
   }
 
-  setButtonArrowBy(weatherCondition: string | undefined): string {
+  setButtonArrowBy(weatherConditionCode: number | undefined): string {
+    if (weatherConditionCode !== WEATHER_CONDITION_CODE.SNOW) {
+      return ICON_NAME.ARROW_LEFT_WHITE;
+    }
+
     return ICON_NAME.ARROW_LEFT_DARK;
   }
 }
