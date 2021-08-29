@@ -5,7 +5,7 @@ import { ActivatedRoute } from 'src/testing/activated-route-stub';
 import { CityService } from '../shared/services/city.service';
 import { CurrentWeatherConditionModel } from '../shared/models/current-weather-condition.model';
 import { delay } from 'rxjs/operators';
-import { ICON_NAME } from './city.component.config';
+import { ICON_NAME, COLORS } from './city.component.config';
 
 @Component({
   selector: 'app-city',
@@ -48,18 +48,18 @@ export class CityComponent implements OnInit {
     weatherCondition: CurrentWeatherConditionModel | undefined
   ): string {
     if (this.isLoading) {
-      return '#F5F5F5';
+      return COLORS.WHITE_SMOKE;
     }
 
-    return '#F5F5F5';
+    return COLORS.WHITE_SMOKE;
   }
 
   setTextColorBy(weatherCondition: string | undefined): string {
     if (this.isLoading) {
-      return '#000';
+      return COLORS.DARK;
     }
 
-    return '#000';
+    return COLORS.DARK;
   }
 
   goBack(): void {
