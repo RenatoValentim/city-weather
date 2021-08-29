@@ -182,6 +182,16 @@ describe('CityComponent', () => {
       compiled.querySelector('section div h1')?.textContent!
     );
   });
+
+  it('should display a correctly city weather', () => {
+    fixture.detectChanges();
+    getTestScheduler().flush();
+    fixture.detectChanges();
+
+    expect(component.city.currentWeatherCondition.condition).toBe(
+      compiled.querySelector('section div h2')?.textContent!
+    );
+  });
 });
 
 class CityServiceSpy implements LoadCity {
