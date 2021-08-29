@@ -9,6 +9,7 @@ import { Observable, of } from 'rxjs';
 import { cold, getTestScheduler } from 'jasmine-marbles';
 import { CityModel } from '../shared/models/city.model';
 import { NgxLoadingModule } from 'ngx-loading';
+import { By } from '@angular/platform-browser';
 
 describe('CityComponent', () => {
   let component: CityComponent;
@@ -88,6 +89,15 @@ describe('CityComponent', () => {
     const compiled = fixture.nativeElement as HTMLElement;
     const loading = compiled.querySelector('ngx-loading');
     expect(loading).toBeTruthy();
+  });
+
+  it('should display default background-color / color', () => {
+    fixture.detectChanges();
+    getTestScheduler().flush();
+    expect(component.isLoading).toBeFalse();
+    const compiled = fixture.debugElement.query(By.css('main')).nativeElement;
+    expect(getComputedStyle(compiled).backgroundColor).toEqual('rgb(245, 245, 245)');
+    expect(getComputedStyle(compiled).color).toEqual('rgb(0, 0, 0)');
   });
 });
 

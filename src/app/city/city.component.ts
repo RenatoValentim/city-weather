@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CityModel } from '../shared/models/city.model';
 import { ActivatedRoute } from 'src/testing/activated-route-stub';
 import { CityService } from '../shared/services/city.service';
+import { CurrentWeatherConditionModel } from '../shared/models/current-weather-condition.model';
 
 @Component({
   selector: 'app-city',
@@ -30,5 +31,15 @@ export class CityComponent implements OnInit {
         });
       }
     });
+  }
+
+  setBackgroundColorBy(
+    weatherCondition: CurrentWeatherConditionModel | undefined
+  ): string {
+    return '#F5F5F5';
+  }
+
+  setTextColorBy(weatherCondition: string | undefined): string {
+    return '#000';
   }
 }

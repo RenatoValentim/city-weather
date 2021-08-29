@@ -1,1 +1,6 @@
-<ngx-loading [show]="isLoading" [config]="{ backdropBorderRadius: '3px' }"></ngx-loading>
+<ngx-loading *ngIf="isLoading" [show]="isLoading" [config]="{ backdropBorderRadius: '3px' }"></ngx-loading>
+<main [ngStyle]="{
+  'background-color': setBackgroundColorBy(city?.currentWeatherCondition),
+    'color': setTextColorBy(city?.currentWeatherCondition?.condition)
+}">
+</main>
