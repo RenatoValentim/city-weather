@@ -93,8 +93,9 @@ describe('HomeComponent', () => {
 
   it('should display a correctly background color', () => {
     fixture.detectChanges();
-    const compiled = fixture.debugElement.query(By.css('main')).nativeElement;
-    expect(getComputedStyle(compiled).backgroundColor).toEqual('rgb(0, 0, 0)');
+    const compiled = fixture.nativeElement as HTMLElement;
+    const main = compiled.querySelector('main');
+    expect(getComputedStyle(main!).backgroundColor).toEqual('rgb(0, 0, 0)');
   });
 
   it('can get RouterLinks from template', () => {
