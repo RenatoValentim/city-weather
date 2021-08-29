@@ -10,13 +10,14 @@ import { LoadCity } from '../shared/interfaces/load-city';
 import { CityModel } from '../shared/models/city.model';
 import { CityService } from '../shared/services/city.service';
 import { CityComponent } from './city.component';
-import { WEATHER_CONDITION_CODE } from './city.component.config';
 
 describe('CityComponent', () => {
   let component: CityComponent;
   let fixture: ComponentFixture<CityComponent>;
   let activatedRoute: ActivatedRouteStub;
   let cityServiceSpy: LoadCity;
+  let compiled: HTMLElement;
+  let main: HTMLElement | null;
 
   beforeEach(() => {
     activatedRoute = new ActivatedRouteStub();
@@ -40,6 +41,8 @@ describe('CityComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(CityComponent);
     component = fixture.componentInstance;
+    compiled = fixture.nativeElement as HTMLElement;
+    main = compiled.querySelector('main');
   });
 
   it('should create', () => {
@@ -84,23 +87,9 @@ describe('CityComponent', () => {
     });
   });
 
-  // TODO: Verificar se é realmente necessário este teste
-  xit('should display a loading component if component.isNotLoad equals true', () => {
-    fixture.detectChanges();
-    expect(component.isLoading).toBeTrue();
-    const compiled = fixture.nativeElement as HTMLElement;
-    component.isLoading = true;
-    fixture.detectChanges();
-
-    const loading = compiled.querySelector('ngx-loading');
-    expect(loading).toBeTruthy();
-  });
-
   it('should display a default background-color / color', () => {
     fixture.detectChanges();
     expect(component.isLoading).toBeTrue();
-    const compiled = fixture.nativeElement as HTMLElement;
-    const main = compiled.querySelector('main');
     fixture.detectChanges();
     expect(getComputedStyle(main!).backgroundColor).toEqual(
       'rgb(245, 245, 245)'
@@ -108,23 +97,10 @@ describe('CityComponent', () => {
     expect(getComputedStyle(main!).color).toEqual('rgb(0, 0, 0)');
   });
 
-  // TODO: Verificar se é realmente necessário este teste
-  xit('should display a default image to load', () => {
-    fixture.detectChanges();
-    expect(component.isLoading).toBeTrue();
-    const compiled = fixture.nativeElement as HTMLElement;
-    const img = compiled.querySelector('main img');
-    fixture.detectChanges();
-    expect(img).toBeTruthy();
-    expect(img?.getAttribute('src')?.includes('world_dark.png')).toBeTrue();
-  });
-
   xit('should display the correctly background-color to weather code sunny', () => {
     fixture.detectChanges();
     getTestScheduler().flush();
     cityServiceSpy.loadBy('Recife');
-    const compiled = fixture.nativeElement as HTMLElement;
-    const main = compiled.querySelector('main');
     fixture.detectChanges();
 
     expect(getComputedStyle(main!).backgroundColor).toEqual(
@@ -138,8 +114,6 @@ describe('CityComponent', () => {
     fixture.detectChanges();
     getTestScheduler().flush();
     cityServiceSpy.loadBy('Recife');
-    const compiled = fixture.nativeElement as HTMLElement;
-    const main = compiled.querySelector('main');
 
     expect(getComputedStyle(main!).backgroundColor).toEqual(
       'rgb(245, 245, 245)'
@@ -152,8 +126,6 @@ describe('CityComponent', () => {
     fixture.detectChanges();
     getTestScheduler().flush();
     cityServiceSpy.loadBy('Recife');
-    const compiled = fixture.nativeElement as HTMLElement;
-    const main = compiled.querySelector('main');
     fixture.detectChanges();
     const imagePath = main
       ?.querySelector('section button img')
@@ -166,8 +138,6 @@ describe('CityComponent', () => {
     fixture.detectChanges();
     getTestScheduler().flush();
     cityServiceSpy.loadBy('Recife');
-    const compiled = fixture.nativeElement as HTMLElement;
-    const main = compiled.querySelector('main');
     fixture.detectChanges();
     const imagePath = main
       ?.querySelector('section button img')
@@ -180,8 +150,6 @@ describe('CityComponent', () => {
     fixture.detectChanges();
     getTestScheduler().flush();
     cityServiceSpy.loadBy('Recife');
-    const compiled = fixture.nativeElement as HTMLElement;
-    const main = compiled.querySelector('main');
     fixture.detectChanges();
     const imagePath = main
       ?.querySelector('section button img')
@@ -196,8 +164,6 @@ describe('CityComponent', () => {
     fixture.detectChanges();
     getTestScheduler().flush();
     cityServiceSpy.loadBy('Recife');
-    const compiled = fixture.nativeElement as HTMLElement;
-    const main = compiled.querySelector('main');
     fixture.detectChanges();
 
     expect(getComputedStyle(main!).backgroundColor).toEqual(
@@ -205,6 +171,16 @@ describe('CityComponent', () => {
     );
 
     expect(getComputedStyle(main!).color).toEqual('rgb(0, 0, 0)');
+  });
+
+  it('should display a correctly city name', () => {
+    fixture.detectChanges();
+    getTestScheduler().flush();
+    fixture.detectChanges();
+
+    expect(component.cityName).toBe(
+      compiled.querySelector('section div h1')?.textContent!
+    );
   });
 });
 

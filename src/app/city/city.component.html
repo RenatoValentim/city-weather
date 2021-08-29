@@ -9,8 +9,12 @@
 
   <section *ngIf="!isLoading">
     <button (click)="goBack()">
-      <img [src]="imagePath + setButtonArrowBy(city?.currentWeatherCondition?.code)"
-        alt="Button go back">
+      <img [src]="imagePath + setButtonArrowBy(city?.currentWeatherCondition?.code)" alt="Button go back">
     </button>
+    <header>
+      <div>
+        <h1>{{ cityName }}</h1>
+      </div>
+    </header>
   </section>
 </main>
