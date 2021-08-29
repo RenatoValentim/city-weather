@@ -10,6 +10,7 @@ import { CityModel } from '../shared/models/city.model';
 import { CityService } from '../shared/services/city.service';
 import { CityComponent } from './city.component';
 import { delay } from 'rxjs/operators';
+import { LoadCity } from '../shared/interfaces/load-city';
 
 describe('CityComponent', () => {
   let component: CityComponent;
@@ -127,6 +128,3 @@ class CityServiceSpy implements LoadCity {
   }
 }
 
-interface LoadCity {
-  loadBy(name: string): Observable<CityModel>;
-}
