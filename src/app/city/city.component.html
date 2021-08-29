@@ -1,6 +1,7 @@
 <ngx-loading *ngIf="isLoading" [show]="isLoading" [config]="{ backdropBorderRadius: '3px' }"></ngx-loading>
 <main [ngStyle]="{
   'background-color': setBackgroundColorBy(city?.currentWeatherCondition),
-    'color': setTextColorBy(city?.currentWeatherCondition?.condition)
+  'color': setTextColorBy(city?.currentWeatherCondition?.condition)
 }">
+  <img *ngIf="isLoading" src="../../assets/images/world_dark.png" alt="World image">
 </main>

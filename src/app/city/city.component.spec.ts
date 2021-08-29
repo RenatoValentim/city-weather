@@ -91,12 +91,24 @@ describe('CityComponent', () => {
     expect(loading).toBeTruthy();
   });
 
-  it('should display default background-color / color', () => {
+  it('should display a default background-color / color', () => {
     fixture.detectChanges();
     expect(component.isLoading).toBeTrue();
-    const compiled = fixture.debugElement.query(By.css('main')).nativeElement;
-    expect(getComputedStyle(compiled).backgroundColor).toEqual('rgb(245, 245, 245)');
-    expect(getComputedStyle(compiled).color).toEqual('rgb(0, 0, 0)');
+    const compiled = fixture.nativeElement as HTMLElement;
+    const main = compiled.querySelector('main');
+    expect(getComputedStyle(main!).backgroundColor).toEqual(
+      'rgb(245, 245, 245)'
+    );
+    expect(getComputedStyle(main!).color).toEqual('rgb(0, 0, 0)');
+  });
+
+  it('should display a default image to load', () => {
+    fixture.detectChanges();
+    expect(component.isLoading).toBeTrue();
+    const compiled = fixture.nativeElement as HTMLElement;
+    const img = compiled.querySelector('main img');
+    expect(img).toBeTruthy();
+    expect(img?.getAttribute('src')?.includes('world_dark.png')).toBeTrue();
   });
 });
 
