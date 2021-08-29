@@ -5,7 +5,7 @@ import { ActivatedRoute } from 'src/testing/activated-route-stub';
 import { CityService } from '../shared/services/city.service';
 import { CurrentWeatherConditionModel } from '../shared/models/current-weather-condition.model';
 import { delay } from 'rxjs/operators';
-import { ICON_NAME, COLORS } from './city.component.config';
+import { ICON_NAME, COLORS, WEATHER_CONDITION_CODE } from './city.component.config';
 
 @Component({
   selector: 'app-city',
@@ -44,19 +44,25 @@ export class CityComponent implements OnInit {
       });
   }
 
-  setBackgroundColorBy(
-    weatherCondition: CurrentWeatherConditionModel | undefined
-  ): string {
+  setBackgroundColorBy(weatherConditionCode: number | undefined): string {
     if (this.isLoading) {
       return COLORS.WHITE_SMOKE;
+    }
+
+    if (weatherConditionCode === WEATHER_CONDITION_CODE.SUNNY) {
+      return COLORS.MALIBU;
     }
 
     return COLORS.WHITE_SMOKE;
   }
 
-  setTextColorBy(weatherCondition: string | undefined): string {
+  setTextColorBy(weatherConditionCode: number | undefined): string {
     if (this.isLoading) {
       return COLORS.DARK;
+    }
+
+    if (weatherConditionCode === WEATHER_CONDITION_CODE.SUNNY) {
+      return COLORS.WHITE;
     }
 
     return COLORS.DARK;

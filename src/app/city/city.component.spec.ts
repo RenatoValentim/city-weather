@@ -93,8 +93,6 @@ describe('CityComponent', () => {
     fixture.detectChanges();
 
     const loading = compiled.querySelector('ngx-loading');
-    console.log(compiled);
-    console.log(fixture.debugElement.nativeElement);
     expect(loading).toBeTruthy();
   });
 
@@ -120,6 +118,23 @@ describe('CityComponent', () => {
     expect(img).toBeTruthy();
     expect(img?.getAttribute('src')?.includes('world_dark.png')).toBeTrue();
   });
+
+  it('should display the correctly background-color to weather sunny', () => {
+    fixture.detectChanges();
+    getTestScheduler().flush();
+    cityServiceSpy.loadBy('Recife');
+    const compiled = fixture.nativeElement as HTMLElement;
+    const main = compiled.querySelector('main');
+    fixture.detectChanges();
+
+    expect(getComputedStyle(main!).backgroundColor).toEqual(
+      'rgb(87, 203, 220)'
+    );
+
+    expect(getComputedStyle(main!).color).toEqual(
+      'rgb(255, 255, 255)'
+    );
+  });
 });
 
 class CityServiceSpy implements LoadCity {
@@ -127,4 +142,3 @@ class CityServiceSpy implements LoadCity {
     return cold('--x|', { x: CITY_MOCK });
   }
 }
-
