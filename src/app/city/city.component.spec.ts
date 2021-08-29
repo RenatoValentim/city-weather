@@ -5,13 +5,15 @@ import { ActivatedRouteStub } from '../../testing/activated-route-stub';
 import { CityComponent } from './city.component';
 import { CityService } from '../shared/services/city.service';
 import { CITY_MOCK } from '../../testing/mocks/city.mock';
-import { of } from 'rxjs';
+import { Observable, of } from 'rxjs';
+import { cold, getTestScheduler } from 'jasmine-marbles';
+import { CityModel } from '../shared/models/city.model';
 
 describe('CityComponent', () => {
   let component: CityComponent;
   let fixture: ComponentFixture<CityComponent>;
   let activatedRoute: ActivatedRouteStub;
-  let cityServiceSpy: any;
+  let cityServiceSpy: LoadCity;
 
   beforeEach(() => {
     activatedRoute = new ActivatedRouteStub();
@@ -19,7 +21,7 @@ describe('CityComponent', () => {
 
   beforeEach(
     waitForAsync(() => {
-      cityServiceSpy = jasmine.createSpyObj('CityService', ['loadBy']);
+      cityServiceSpy = new CityServiceSpy();
       activatedRoute.setParamMap({ cityName: 'Recife' });
       TestBed.configureTestingModule({
         declarations: [CityComponent],
@@ -38,7 +40,6 @@ describe('CityComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
-    expect(component.isLoading).toBeFalse();
   });
 
   it('should not loading before ngOnInit', () => {
@@ -48,9 +49,11 @@ describe('CityComponent', () => {
   it('should NOT have city immediately after ngOnInit', () => {
     fixture.detectChanges();
     expect(component.city).toBeFalsy();
+    expect(component.isLoading).toBeTrue();
   });
 
   it('should have a city name on the router params after ngOnInit', (done: DoneFn) => {
+    fixture.detectChanges();
     activatedRoute.paramMap.subscribe((value) => {
       expect(value).toBeTruthy();
 
@@ -63,18 +66,27 @@ describe('CityComponent', () => {
     });
   });
 
-  it('should get a city after ngOnInit', (done: DoneFn) => {
-    activatedRoute.paramMap.subscribe((value) => {
-      expect(value).toBeTruthy();
-
-      if (value.has('cityName')) {
-        component.cityName = value.get('cityName');
-        expect(component.cityName).toBe('Recife');
+  it('should get a city after ngOnInit', () => {
+    fixture.detectChanges();
+    expect(component.isLoading).toBeTrue();
+    getTestScheduler().flush();
+    activatedRoute.paramMap.subscribe((params) => {
+      if (params.has('cityName')) {
+        component.cityName = params.get('cityName');
+        cityServiceSpy.loadBy(component.cityName!);
+        expect(component.city).toBeTruthy();
+        expect(component.isLoading).toBeFalse();
       }
-
-      component.city = cityServiceSpy.loadBy.and.returnValue(CITY_MOCK)();
-      expect(component.city).toBeTruthy();
-      done();
     });
   });
 });
+
+class CityServiceSpy implements LoadCity {
+  loadBy(name: string): Observable<CityModel> {
+    return cold('--x|', { x: CITY_MOCK });
+  }
+}
+
+interface LoadCity {
+  loadBy(name: string): Observable<CityModel>;
+}
