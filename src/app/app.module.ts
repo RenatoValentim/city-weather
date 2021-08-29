@@ -5,16 +5,18 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
 import { CityComponent } from './city/city.component';
+import { NgxLoadingModule } from 'ngx-loading';
 
 @NgModule({
-  declarations: [		
+  declarations: [
     AppComponent,
       HomeComponent,
       CityComponent
    ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    NgxLoadingModule.forRoot({}),
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -8,6 +8,7 @@ import { CITY_MOCK } from '../../testing/mocks/city.mock';
 import { Observable, of } from 'rxjs';
 import { cold, getTestScheduler } from 'jasmine-marbles';
 import { CityModel } from '../shared/models/city.model';
+import { NgxLoadingModule } from 'ngx-loading';
 
 describe('CityComponent', () => {
   let component: CityComponent;
@@ -24,6 +25,7 @@ describe('CityComponent', () => {
       cityServiceSpy = new CityServiceSpy();
       activatedRoute.setParamMap({ cityName: 'Recife' });
       TestBed.configureTestingModule({
+        imports: [NgxLoadingModule.forRoot({})],
         declarations: [CityComponent],
         providers: [
           { provide: ActivatedRoute, useValue: activatedRoute },
@@ -78,6 +80,14 @@ describe('CityComponent', () => {
         expect(component.isLoading).toBeFalse();
       }
     });
+  });
+
+  it('should display a load component if component.isLoad equals true', () => {
+    fixture.detectChanges();
+    expect(component.isLoading).toBeTrue();
+    const compiled = fixture.nativeElement as HTMLElement;
+    const loading = compiled.querySelector('ngx-loading');
+    expect(loading).toBeTruthy();
   });
 });
 
