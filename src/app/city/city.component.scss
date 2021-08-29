@@ -1,0 +1,92 @@
+main {
+  color: white;
+
+  button {
+    margin: 2% 60% 6% 0;
+    background: none;
+    cursor: pointer;
+  }
+
+  header {
+    display: flex;
+    justify-content: center;
+
+    h1 {
+      padding-top: 10%;
+      font-size: 2.5rem;
+      font-weight: 100;
+      text-transform: uppercase;
+    }
+
+    h2 {
+      font-weight: normal;
+      font-size: 1.1rem;
+    }
+  }
+
+  section div.currentWeather {
+    display: flex;
+    justify-content: center;
+
+    span.currentWeatherValue {
+      font-size: 81px;
+    }
+
+    div.temperatures {
+      display: flex;
+      flex-direction: column;
+      margin-left: 1rem;
+
+      img {
+        width: 26%;
+        height: auto;
+      }
+
+      span:first-child {
+        font-size: 1.5rem;
+        margin-left: 1rem;
+      }
+    }
+  }
+
+  section div.forecasts {
+    display: flex;
+    justify-content: space-evenly;
+    width: 50%;
+    margin: auto;
+
+    div {
+      display: flex;
+      justify-content: space-evenly;
+      flex-direction: column;
+      width: 7%;
+    }
+  }
+
+  footer div {
+    display: flex;
+    justify-content: space-around;
+    width: 50%;
+    margin: 1rem auto;
+
+    .footer-details {
+      flex-direction: column;
+    }
+
+    .footer-details p {
+      margin-bottom: 0.9rem;
+    }
+
+    .separator-white {
+      border-left: 1px solid white;
+      height: 2.5rem;
+      margin-top: 1.8rem;
+    }
+
+    .separator-black {
+      border-left: 1px solid black;
+      height: 2.5rem;
+      margin-top: 1.8rem;
+    }
+  }
+}
