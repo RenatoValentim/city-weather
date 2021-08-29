@@ -9,6 +9,10 @@ export enum KEYWORDS_WEATHER_CONDITION {
   CLEAR = 'Clear',
 }
 
+export enum WEATHER_CONDITION_CODE {
+  SUNNY = 1000,
+}
+
 export enum ICON_NAME {
   ARROW_DOWN_DARK = 'arrow_down_dark.png',
   ARROW_TOP_WHITE = 'arrow_top_white.png',
