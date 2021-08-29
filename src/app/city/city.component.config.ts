@@ -11,6 +11,9 @@ export enum KEYWORDS_WEATHER_CONDITION {
 
 export enum WEATHER_CONDITION_CODE {
   SUNNY = 1000,
+  CLOUDY= 1006,
+  SNOW = 1225,
+  RAIN = 1195
 }
 
 export enum ICON_NAME {
