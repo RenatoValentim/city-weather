@@ -53,6 +53,10 @@ export class CityComponent implements OnInit {
       return COLORS.MALIBU;
     }
 
+    if (weatherConditionCode === WEATHER_CONDITION_CODE.RAIN) {
+      return COLORS.BLUE_ZODIAC;
+    }
+
     return COLORS.WHITE_SMOKE;
   }
 
@@ -61,7 +65,7 @@ export class CityComponent implements OnInit {
       return COLORS.DARK;
     }
 
-    if (weatherConditionCode === WEATHER_CONDITION_CODE.SUNNY) {
+    if (weatherConditionCode !== WEATHER_CONDITION_CODE.SUNNY) {
       return COLORS.WHITE;
     }
 
