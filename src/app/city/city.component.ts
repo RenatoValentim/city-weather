@@ -1,9 +1,11 @@
+import { Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { CityModel } from '../shared/models/city.model';
 import { ActivatedRoute } from 'src/testing/activated-route-stub';
 import { CityService } from '../shared/services/city.service';
 import { CurrentWeatherConditionModel } from '../shared/models/current-weather-condition.model';
-import { mergeMap, delay, takeUntil } from 'rxjs/operators';
+import { delay } from 'rxjs/operators';
+import { ICON_NAME } from './city.component.config';
 
 @Component({
   selector: 'app-city',
@@ -14,27 +16,32 @@ export class CityComponent implements OnInit {
   isLoading = true;
   city!: CityModel;
   cityName!: string | null;
+  readonly imagePath = '../../assets/images/';
 
   constructor(
     private activatedRoute: ActivatedRoute,
-    private cityService: CityService
+    private cityService: CityService,
+    private location: Location
   ) {}
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.activatedRoute.paramMap.subscribe((param) => {
       if (param.has('cityName')) {
         this.cityName = param.get('cityName');
-
-        this.cityService
-          .loadBy()
-          // TODO: Apenas para debug remover depois
-          // .pipe(delay(2000))
-          .subscribe((city) => {
-            this.city = city;
-            this.isLoading = false;
-          });
+        this.getCity();
       }
     });
+  }
+
+  private getCity(): void {
+    this.cityService
+      .loadBy(this.cityName!)
+      // TODO: Apenas para debug remover depois
+      // .pipe(delay(2000))
+      .subscribe((city) => {
+        this.city = city;
+        this.isLoading = false;
+      });
   }
 
   setBackgroundColorBy(
@@ -53,5 +60,13 @@ export class CityComponent implements OnInit {
     }
 
     return '#000';
+  }
+
+  goBack(): void {
+    this.location.back();
+  }
+
+  setButtonArrowBy(weatherCondition: string | undefined): string {
+    return ICON_NAME.ARROW_LEFT_DARK;
   }
 }
