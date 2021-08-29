@@ -93,8 +93,7 @@ describe('CityComponent', () => {
 
   it('should display default background-color / color', () => {
     fixture.detectChanges();
-    getTestScheduler().flush();
-    expect(component.isLoading).toBeFalse();
+    expect(component.isLoading).toBeTrue();
     const compiled = fixture.debugElement.query(By.css('main')).nativeElement;
     expect(getComputedStyle(compiled).backgroundColor).toEqual('rgb(245, 245, 245)');
     expect(getComputedStyle(compiled).color).toEqual('rgb(0, 0, 0)');
