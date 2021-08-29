@@ -57,6 +57,10 @@ export class CityComponent implements OnInit {
       return COLORS.BLUE_ZODIAC;
     }
 
+    if (weatherConditionCode === WEATHER_CONDITION_CODE.SNOW) {
+      return COLORS.DARK_GRAY;
+    }
+
     return COLORS.WHITE_SMOKE;
   }
 

@@ -137,7 +137,7 @@ describe('CityComponent', () => {
     );
   });
 
-  it('should display the correctly background-color to weather rain', () => {
+  xit('should display the correctly background-color to weather rain', () => {
     fixture.detectChanges();
     getTestScheduler().flush();
     cityServiceSpy.loadBy('Recife');
@@ -147,6 +147,23 @@ describe('CityComponent', () => {
 
     expect(getComputedStyle(main!).backgroundColor).toEqual(
       'rgb(60, 67, 83)'
+    );
+
+    expect(getComputedStyle(main!).color).toEqual(
+      'rgb(255, 255, 255)'
+    );
+  });
+
+  it('should display the correctly background-color to weather snowy', () => {
+    fixture.detectChanges();
+    getTestScheduler().flush();
+    cityServiceSpy.loadBy('Recife');
+    const compiled = fixture.nativeElement as HTMLElement;
+    const main = compiled.querySelector('main');
+    fixture.detectChanges();
+
+    expect(getComputedStyle(main!).backgroundColor).toEqual(
+      'rgb(166, 166, 166)'
     );
 
     expect(getComputedStyle(main!).color).toEqual(
