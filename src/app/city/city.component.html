@@ -1,6 +1,6 @@
 <main [ngStyle]="{
-  'background-color': setBackgroundColorBy(city?.currentWeatherCondition),
-  'color': setTextColorBy(city?.currentWeatherCondition?.condition)
+  'background-color': setBackgroundColorBy(city?.currentWeatherCondition?.code),
+  'color': setTextColorBy(city?.currentWeatherCondition?.code)
 }">
   <section *ngIf="isLoading">
     <img src="../../assets/images/world_dark.png" alt="World image">
