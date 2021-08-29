@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CityModel } from '../shared/models/city.model';
+import { ActivatedRoute } from 'src/testing/activated-route-stub';
 
 @Component({
   selector: 'app-city',
@@ -9,8 +10,9 @@ import { CityModel } from '../shared/models/city.model';
 export class CityComponent implements OnInit {
   isLoading = false;
   city!: CityModel;
+  cityName!: string | null;
 
-  constructor() {}
+  constructor(private activatedRoute: ActivatedRoute) {}
 
   ngOnInit() {
     this.isLoading = true;
