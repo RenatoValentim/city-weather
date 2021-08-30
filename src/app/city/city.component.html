@@ -22,6 +22,19 @@
         <span class="currentWeatherValue">
           {{ city?.currentWeatherCondition?.currentTemperature }}
         </span>
+        <div class="temperatures">
+          <span>°C</span>
+          <div *ngIf="city?.currentWeatherCondition?.maxTemperature; else emptyValue">
+            <img [src]="imagePath + setArrowTopBy(city?.currentWeatherCondition?.code)"
+              alt="Arrow top max temperature">
+            <span>{{ city?.currentWeatherCondition?.maxTemperature }}°</span>
+          </div>
+          <div *ngIf="city?.currentWeatherCondition?.minTemperature; else emptyValue">
+            <img [src]="imagePath + setArrowDownBy(city?.currentWeatherCondition?.code)"
+              alt="Arrow top min temperature">
+            <span>{{ city?.currentWeatherCondition?.minTemperature }}°</span>
+          </div>
+        </div>
       </div>
     </section>
   </section>

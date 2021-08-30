@@ -5,11 +5,12 @@ import { NgxLoadingModule } from 'ngx-loading';
 import { Observable } from 'rxjs';
 import { ActivatedRoute } from 'src/testing/activated-route-stub';
 import { ActivatedRouteStub } from '../../testing/activated-route-stub';
-import { CITY_MOCK } from '../../testing/mocks/city.mock';
 import { LoadCity } from '../shared/interfaces/load-city';
 import { CityModel } from '../shared/models/city.model';
 import { CityService } from '../shared/services/city.service';
 import { CityComponent } from './city.component';
+import { CITY_MOCK } from '../../testing/mocks/city.mock';
+import { WEATHER_CONDITION_CODE } from './city.component.config';
 
 describe('CityComponent', () => {
   let component: CityComponent;
@@ -97,32 +98,36 @@ describe('CityComponent', () => {
     expect(getComputedStyle(main!).color).toEqual('rgb(0, 0, 0)');
   });
 
-  xit('should display the correctly background-color to weather code sunny', () => {
+  it('should display the correctly background-color to weather code sunny', () => {
     fixture.detectChanges();
     getTestScheduler().flush();
     cityServiceSpy.loadBy('Recife');
     fixture.detectChanges();
 
-    expect(getComputedStyle(main!).backgroundColor).toEqual(
-      'rgb(87, 203, 220)'
-    );
+    if (isSunny(component)) {
+      expect(getComputedStyle(main!).backgroundColor).toEqual(
+        'rgb(87, 203, 220)'
+      );
 
-    expect(getComputedStyle(main!).color).toEqual('rgb(255, 255, 255)');
+      expect(getComputedStyle(main!).color).toEqual('rgb(255, 255, 255)');
+    }
   });
 
-  xit('should display the correctly background-color if code no register into the app', () => {
+  it('should display the correctly background-color if code no register into the app', () => {
     fixture.detectChanges();
     getTestScheduler().flush();
     cityServiceSpy.loadBy('Recife');
 
-    expect(getComputedStyle(main!).backgroundColor).toEqual(
-      'rgb(245, 245, 245)'
-    );
+    if (notFoundCod(component)) {
+      expect(getComputedStyle(main!).backgroundColor).toEqual(
+        'rgb(245, 245, 245)'
+      );
 
-    expect(getComputedStyle(main!).color).toEqual('rgb(0, 0, 0)');
+      expect(getComputedStyle(main!).color).toEqual('rgb(0, 0, 0)');
+    }
   });
 
-  xit('should display the correctly arrow button to weather code sunny', () => {
+  it('should display the correctly arrow button to weather code sunny', () => {
     fixture.detectChanges();
     getTestScheduler().flush();
     cityServiceSpy.loadBy('Recife');
@@ -131,10 +136,12 @@ describe('CityComponent', () => {
       ?.querySelector('section button img')
       ?.getAttribute('src');
 
-    expect(imagePath?.includes('arrow_left_white.png')).toBeTrue();
+    if (isSunny(component)) {
+      expect(imagePath?.includes('arrow_left_white.png')).toBeTrue();
+    }
   });
 
-  xit('should display the correctly arrow button if code no register into the app', () => {
+  it('should display the correctly arrow button if code no register into the app', () => {
     fixture.detectChanges();
     getTestScheduler().flush();
     cityServiceSpy.loadBy('Recife');
@@ -143,21 +150,24 @@ describe('CityComponent', () => {
       ?.querySelector('section button img')
       ?.getAttribute('src');
 
-    expect(imagePath?.includes('arrow_left_dark.png')).toBeTrue();
+    if (notFoundCod(component)) {
+      expect(imagePath?.includes('arrow_left_dark.png')).toBeTrue();
+    }
   });
 
-  xit('should display the correctly background-color to weather rain', () => {
+  it('should display the correctly background-color to weather rain', () => {
     fixture.detectChanges();
     getTestScheduler().flush();
     cityServiceSpy.loadBy('Recife');
     fixture.detectChanges();
-    const imagePath = main
-      ?.querySelector('section button img')
-      ?.getAttribute('src');
 
-    expect(getComputedStyle(main!).backgroundColor).toEqual('rgb(60, 67, 83)');
+    if (isRain(component)) {
+      expect(getComputedStyle(main!).backgroundColor).toEqual(
+        'rgb(60, 67, 83)'
+      );
 
-    expect(getComputedStyle(main!).color).toEqual('rgb(255, 255, 255)');
+      expect(getComputedStyle(main!).color).toEqual('rgb(255, 255, 255)');
+    }
   });
 
   it('should display the correctly background-color to weather snowy', () => {
@@ -166,11 +176,13 @@ describe('CityComponent', () => {
     cityServiceSpy.loadBy('Recife');
     fixture.detectChanges();
 
-    expect(getComputedStyle(main!).backgroundColor).toEqual(
-      'rgb(166, 166, 166)'
-    );
+    if (isSnowy(component)) {
+      expect(getComputedStyle(main!).backgroundColor).toEqual(
+        'rgb(166, 166, 166)'
+      );
 
-    expect(getComputedStyle(main!).color).toEqual('rgb(0, 0, 0)');
+      expect(getComputedStyle(main!).color).toEqual('rgb(0, 0, 0)');
+    }
   });
 
   it('should display a correctly city name', () => {
@@ -209,10 +221,104 @@ describe('CityComponent', () => {
       +currentTemperature!
     );
   });
+
+  it('should display a correctly arrow top on the max temperature when weather code snow', () => {
+    fixture.detectChanges();
+    getTestScheduler().flush();
+    cityServiceSpy.loadBy('Recife');
+    fixture.detectChanges();
+    const imagePath = main
+      ?.querySelectorAll('section')
+      .item(1)
+      .querySelectorAll('section div')
+      .item(2)
+      .querySelector('img')
+      ?.getAttribute('src');
+
+    if (isSnowy(component)) {
+      expect(imagePath?.includes('arrow_top_dark.png')).toBeTrue();
+    }
+  });
+
+  it('should display a correctly arrow top on the max temperature if code no register into the app', () => {
+    fixture.detectChanges();
+    getTestScheduler().flush();
+    cityServiceSpy.loadBy('Recife');
+    fixture.detectChanges();
+    const imagePath = main
+      ?.querySelectorAll('section')
+      .item(1)
+      .querySelectorAll('section div')
+      .item(2)
+      .querySelector('img')
+      ?.getAttribute('src');
+
+    if (notFoundCod(component)) {
+      expect(imagePath?.includes('arrow_top_dark.png')).toBeTrue();
+    }
+  });
+
+  it('should display a correctly arrow top on the min temperature when weather code snow', () => {
+    fixture.detectChanges();
+    getTestScheduler().flush();
+    cityServiceSpy.loadBy('Recife');
+    fixture.detectChanges();
+    const imagePath = main
+      ?.querySelectorAll('section')
+      .item(1)
+      .querySelectorAll('section div')
+      .item(3)
+      .querySelector('img')
+      ?.getAttribute('src');
+
+    if (isSnowy(component)) {
+      expect(imagePath?.includes('arrow_down_dark.png')).toBeTrue();
+    }
+  });
+
+  it('should display a correctly arrow top on the min temperature if code no register into the app', () => {
+    fixture.detectChanges();
+    getTestScheduler().flush();
+    cityServiceSpy.loadBy('Recife');
+    fixture.detectChanges();
+    const imagePath = main
+      ?.querySelectorAll('section')
+      .item(1)
+      .querySelectorAll('section div')
+      .item(3)
+      .querySelector('img')
+      ?.getAttribute('src');
+
+    if (notFoundCod(component)) {
+      expect(imagePath?.includes('arrow_down_dark.png')).toBeTrue();
+    }
+  });
 });
 
 class CityServiceSpy implements LoadCity {
   loadBy(name: string): Observable<CityModel> {
     return cold('--x|', { x: CITY_MOCK });
   }
+}
+
+function isSunny(component: CityComponent): boolean {
+  return (
+    component.city.currentWeatherCondition.code === WEATHER_CONDITION_CODE.SUNNY
+  );
+}
+
+function isRain(component: CityComponent): boolean {
+  return (
+    component.city.currentWeatherCondition.code === WEATHER_CONDITION_CODE.RAIN
+  );
+}
+
+function isSnowy(component: CityComponent): boolean {
+  return (
+    component.city.currentWeatherCondition.code === WEATHER_CONDITION_CODE.SNOW
+  );
+}
+
+function notFoundCod(component: CityComponent): boolean {
+  return component.city.currentWeatherCondition.code === 5555;
 }

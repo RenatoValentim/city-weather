@@ -97,4 +97,20 @@ export class CityComponent implements OnInit {
 
     return ICON_NAME.ARROW_LEFT_DARK;
   }
+
+  setArrowTopBy(weatherConditionCode: number | undefined): string {
+    if (!this.setColorBack(weatherConditionCode!)) {
+      return ICON_NAME.ARROW_TOP_WHITE;
+    }
+
+    return ICON_NAME.ARROW_TOP_DARK;
+  }
+
+  setArrowDownBy(weatherConditionCode: number | undefined): string {
+    if (!this.setColorBack(weatherConditionCode!)) {
+      return ICON_NAME.ARROW_DOWN_WHITE;
+    }
+
+    return ICON_NAME.ARROW_DOWN_DARK;
+  }
 }
