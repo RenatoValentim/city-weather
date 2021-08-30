@@ -5,8 +5,7 @@ import { CityModel } from '../shared/models/city.model';
 import { CityService } from '../shared/services/city.service';
 import {
   COLORS,
-  ICON_NAME,
-  WEATHER_CONDITION_CODE,
+  ICON_NAME
 } from './city.component.config';
 
 @Component({
@@ -51,6 +50,7 @@ export class CityComponent implements OnInit {
       weatherConditionCode?.includes('snow') ||
       weatherConditionCode?.includes('mist') ||
       weatherConditionCode?.includes('sleet') ||
+      weatherConditionCode?.includes('clear') ||
       weatherConditionCode?.includes('overcast')
     );
   }
