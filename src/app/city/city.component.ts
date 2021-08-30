@@ -72,7 +72,7 @@ export class CityComponent implements OnInit {
       return COLORS.WHITE_SMOKE;
     }
 
-    if (weatherConditionCode === WEATHER_CONDITION_CODE.SUNNY) {
+    if (weatherConditionCode === WEATHER_CONDITION_CODE.SUNNY_OR_CLEAR_NIGHT) {
       return COLORS.MALIBU;
     }
 

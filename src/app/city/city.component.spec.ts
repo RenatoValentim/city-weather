@@ -104,7 +104,7 @@ describe('CityComponent', () => {
     cityServiceSpy.loadBy('Recife');
     fixture.detectChanges();
 
-    if (isSunny(component)) {
+    if (isClear(component)) {
       expect(getComputedStyle(main!).backgroundColor).toEqual(
         'rgb(87, 203, 220)'
       );
@@ -136,7 +136,7 @@ describe('CityComponent', () => {
       ?.querySelector('section button img')
       ?.getAttribute('src');
 
-    if (isSunny(component)) {
+    if (isClear(component)) {
       expect(imagePath?.includes('arrow_left_white.png')).toBeTrue();
     }
   });
@@ -319,7 +319,7 @@ describe('CityComponent', () => {
       .item(3)
       .getAttribute('src');
 
-    if (isSunny(component)) {
+    if (isClear(component) && isDay(component.city.currentWeatherCondition.time)) {
       expect(imagePath?.includes('sun_white.png')).toBeTrue();
     }
   });
@@ -474,9 +474,9 @@ class CityServiceSpy implements LoadCity {
   }
 }
 
-function isSunny(component: CityComponent): boolean {
+function isClear(component: CityComponent): boolean {
   return (
-    component.city.currentWeatherCondition.code === WEATHER_CONDITION_CODE.SUNNY
+    component.city.currentWeatherCondition.code === WEATHER_CONDITION_CODE.SUNNY_OR_CLEAR_NIGHT
   );
 }
 
