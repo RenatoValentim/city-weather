@@ -299,9 +299,26 @@ describe('CityComponent', () => {
     getTestScheduler().flush();
     cityServiceSpy.loadBy('Recife');
     fixture.detectChanges();
-    const imagePath = main?.querySelectorAll('section img').item(3).getAttribute('src');
+    const imagePath = main
+      ?.querySelectorAll('section img')
+      .item(3)
+      .getAttribute('src');
     if (notFoundCod(component)) {
       expect(imagePath?.includes('world_dark.png')).toBeTrue();
+    }
+  });
+
+  it('should display a correctly default middle icon when to be rain at day', () => {
+    fixture.detectChanges();
+    getTestScheduler().flush();
+    cityServiceSpy.loadBy('Recife');
+    fixture.detectChanges();
+    const imagePath = main
+      ?.querySelectorAll('section img')
+      .item(3)
+      .getAttribute('src');
+    if (isRain(component) && isDay(component.city.currentWeatherCondition.time)) {
+      expect(imagePath?.includes('sun_rain_white.png')).toBeTrue();
     }
   });
 });
@@ -332,4 +349,10 @@ function isSnowy(component: CityComponent): boolean {
 
 function notFoundCod(component: CityComponent): boolean {
   return component.city.currentWeatherCondition.code === 5555;
+}
+
+function isDay(time: string): boolean {
+  const currentHour = new Date(time).getHours();
+
+  return currentHour > 5 && currentHour < 18;
 }

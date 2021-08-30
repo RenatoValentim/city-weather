@@ -4,6 +4,7 @@ import { CityModel } from '../shared/models/city.model';
 import { ActivatedRoute } from 'src/testing/activated-route-stub';
 import { CityService } from '../shared/services/city.service';
 import { delay } from 'rxjs/operators';
+import { CurrentWeatherConditionModel } from '../shared/models/current-weather-condition.model';
 import {
   ICON_NAME,
   COLORS,
@@ -52,6 +53,12 @@ export class CityComponent implements OnInit {
       weatherConditionCode !== WEATHER_CONDITION_CODE.SNOW &&
       Object.values(WEATHER_CONDITION_CODE).includes(weatherConditionCode!)
     );
+  }
+
+  private isDay(time: string): boolean {
+    const currentHour = new Date(time).getHours();
+
+    return currentHour > 5 && currentHour < 18;
   }
 
   setBackgroundColorBy(weatherConditionCode: number | undefined): string {
@@ -114,7 +121,13 @@ export class CityComponent implements OnInit {
     return ICON_NAME.ARROW_DOWN_DARK;
   }
 
-  setMiddleIconBy(weatherConditionCode: number | undefined): string {
+  setMiddleIconBy(
+    weatherCondition: CurrentWeatherConditionModel | undefined
+  ): string {
+    if (this.isDay(weatherCondition?.time!)) {
+      return ICON_NAME.SUN_RAIN_WHITE;
+    }
+
     return ICON_NAME.WORLD_DARK;
   }
 }
