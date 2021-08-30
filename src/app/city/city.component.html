@@ -37,6 +37,15 @@
       </div>
     </section>
     <img [src]="imagePath + setMiddleIconBy(city?.currentWeatherCondition)" alt="Current weather icon">
+    <section>
+      <div class="forecasts">
+        <div>
+          <span *ngIf="city.forecastDay[0]?.shift; else emptyValue">
+            {{ city.forecastDay[0]?.shift }}
+          </span>
+        </div>
+      </div>
+    </section>
   </section>
 </main>
 

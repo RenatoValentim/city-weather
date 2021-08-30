@@ -380,6 +380,22 @@ describe('CityComponent', () => {
       expect(imagePath?.includes('moon_snowy_dark.png')).toBeTrue();
     }
   });
+
+  it('should display a correctly city temperature', () => {
+    fixture.detectChanges();
+    getTestScheduler().flush();
+    fixture.detectChanges();
+
+    let shift: string | null | undefined;
+    if (main) {
+      shift = main
+        ?.querySelectorAll('section')
+        .item(2)
+        .querySelector('div .forecasts div span')?.textContent?.trim();
+    }
+
+    expect(component.city.forecastDay[0].shift).toEqual(shift!);
+  });
 });
 
 class CityServiceSpy implements LoadCity {

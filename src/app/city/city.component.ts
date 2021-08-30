@@ -152,4 +152,8 @@ export class CityComponent implements OnInit {
       return ICON_NAME.MOON_RAIN_WHITE;
     }
   }
+
+  setForecastIcon(weatherCondition: CurrentWeatherConditionModel | undefined): string {
+    return ''
+  }
 }
