@@ -500,6 +500,25 @@ describe('CityComponent', () => {
       expect(imagePath?.includes('moon_rain_white.png')).toBeTrue();
     }
   });
+
+  it('should display a correctly forecast icon when to be rain at day', () => {
+    fixture.detectChanges();
+    getTestScheduler().flush();
+    cityServiceSpy.loadBy('Recife');
+    fixture.detectChanges();
+    const imagePath = main
+      ?.querySelectorAll('section')
+      .item(2)
+      .querySelector('div .forecasts div img')
+      ?.getAttribute('src');
+
+    if (
+      isRain(component) &&
+      isDay(component.city.currentWeatherCondition.time)
+    ) {
+      expect(imagePath?.includes('sun_rain_white.png')).toBeTrue();
+    }
+  });
 });
 
 class CityServiceSpy implements LoadCity {

@@ -172,6 +172,10 @@ export class CityComponent implements OnInit {
         return ICON_NAME.SUN_SNOWY_DARK;
       }
 
+      if (weatherCondition?.code === WEATHER_CONDITION_CODE.RAIN) {
+        return ICON_NAME.SUN_RAIN_WHITE;
+      }
+
       return ICON_NAME.SUN_WHITE;
     } else {
       if (this.notFoundCod(weatherCondition?.code)) {
