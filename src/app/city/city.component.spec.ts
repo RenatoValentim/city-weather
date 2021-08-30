@@ -428,7 +428,7 @@ describe('CityComponent', () => {
     expect(component.city.forecastDay[0].shift).toEqual(shift!);
   });
 
-  it('should display a correctly icon when to be snowy at day', () => {
+  it('should display a correctly forecast icon when to be snowy at day', () => {
     fixture.detectChanges();
     getTestScheduler().flush();
     cityServiceSpy.loadBy('Recife');
@@ -479,6 +479,25 @@ describe('CityComponent', () => {
       !isDay(component.city.currentWeatherCondition.time)
     ) {
       expect(imagePath?.includes('moon_snowy_dark.png')).toBeTrue();
+    }
+  });
+
+  it('should display a correctly forecast icon when to be rain at night', () => {
+    fixture.detectChanges();
+    getTestScheduler().flush();
+    cityServiceSpy.loadBy('Recife');
+    fixture.detectChanges();
+    const imagePath = main
+      ?.querySelectorAll('section')
+      .item(2)
+      .querySelector('div .forecasts div img')
+      ?.getAttribute('src');
+
+    if (
+      isRain(component) &&
+      !isDay(component.city.currentWeatherCondition.time)
+    ) {
+      expect(imagePath?.includes('moon_rain_white.png')).toBeTrue();
     }
   });
 });
