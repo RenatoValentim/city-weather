@@ -10,7 +10,7 @@ describe('Service: City', () => {
     });
   });
 
-  it('should ...', inject([CityService], (service: CityService) => {
+  xit('should ...', inject([CityService], (service: CityService) => {
     expect(service).toBeTruthy();
   }));
 });

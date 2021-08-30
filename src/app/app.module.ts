@@ -1,24 +1,21 @@
+import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
+import { NgxLoadingModule } from 'ngx-loading';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { HomeComponent } from './home/home.component';
 import { CityComponent } from './city/city.component';
-import { NgxLoadingModule } from 'ngx-loading';
+import { HomeComponent } from './home/home.component';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-      HomeComponent,
-      CityComponent
-   ],
+  declarations: [AppComponent, HomeComponent, CityComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
     NgxLoadingModule.forRoot({}),
+    HttpClientModule,
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

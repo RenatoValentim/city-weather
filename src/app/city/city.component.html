@@ -2,7 +2,7 @@
   'background-color': setBackgroundColorBy(city?.currentWeatherCondition?.code),
   'color': setTextColorBy(city?.currentWeatherCondition?.code)
 }">
-  <section *ngIf="isLoading">
+  <section class="loading" *ngIf="isLoading">
     <img src="../../assets/images/world_dark.png" alt="World image">
     <ngx-loading *ngIf="isLoading" [show]="isLoading" [config]="{ backdropBorderRadius: '3px' }"></ngx-loading>
   </section>
@@ -36,21 +36,84 @@
         </div>
       </div>
     </section>
-    <img [src]="imagePath + setMiddleIconBy(city?.currentWeatherCondition)" alt="Current weather icon">
+    <img [src]="city.currentWeatherCondition.icon" alt="Current weather icon">
     <section>
       <div class="forecasts">
         <div>
           <span *ngIf="city.forecastDay[0]?.shift; else emptyValue">
             {{ city.forecastDay[0]?.shift }}
           </span>
-          <img [src]="imagePath + setForecastIcon(city?.currentWeatherCondition)" alt="Sun">
+          <img [src]="city.forecastDay[0].icon" alt="Sun">
           <span *ngIf="city.forecastDay[0]?.temperature; else emptyValue">
             {{ city.forecastDay[0]?.temperature }}°C
+          </span>
+        </div>
+        <div>
+          <span *ngIf="city.forecastDay[1]?.shift; else emptyValue">
+            {{ city.forecastDay[1]?.shift }}
+          </span>
+          <img [src]="city.forecastDay[1].icon" alt="Sun">
+          <span *ngIf="city.forecastDay[1]?.temperature; else emptyValue">
+            {{ city.forecastDay[1]?.temperature }}°C
+          </span>
+        </div>
+        <div>
+          <span *ngIf="city.forecastDay[2]?.shift; else emptyValue">
+            {{ city.forecastDay[2]?.shift }}
+          </span>
+          <img [src]="city.forecastDay[2].icon" alt="Sun">
+          <span *ngIf="city.forecastDay[2]?.temperature; else emptyValue">
+            {{ city.forecastDay[2]?.temperature }}°C
+          </span>
+        </div>
+        <div>
+          <span *ngIf="city.forecastDay[3]?.shift; else emptyValue">
+            {{ city.forecastDay[3]?.shift }}
+          </span>
+          <img [src]="city.forecastDay[3].icon" alt="Sun">
+          <span *ngIf="city.forecastDay[3]?.temperature; else emptyValue">
+            {{ city.forecastDay[3]?.temperature }}°C
           </span>
         </div>
       </div>
     </section>
   </section>
+  <footer>
+    <div>
+      <div class="footer-details">
+        <p>dawn</p>
+        <span *ngIf="city?.currentWeatherCondition?.weatherForecastDetails?.windSpeed; else emptyValue">
+          {{ (city.currentWeatherCondition.weatherForecastDetails.windSpeed * UNITY_MS_TO_KM_H).toFixed(2)
+          }} m/s
+        </span>
+      </div>
+      <span [ngClass]="setDividerColorBy(city?.currentWeatherCondition?.code!)"></span>
+      <div class="footer-details" *ngIf="city?.currentWeatherCondition?.weatherForecastDetails else emptyValue">
+        <p>{{ city?.currentWeatherCondition?.weatherForecastDetails!.shiftCondition[0].shift }}</p>
+        <span>
+          {{
+          city?.currentWeatherCondition?.weatherForecastDetails!.shiftCondition[0]?.time
+          }}
+        </span>
+      </div>
+      <span [ngClass]="setDividerColorBy(city?.currentWeatherCondition?.code!)"></span>
+      <div class="footer-details" *ngIf="city?.currentWeatherCondition?.weatherForecastDetails; else emptyValue">
+        <p>
+          {{ city?.currentWeatherCondition?.weatherForecastDetails!.shiftCondition[1]?.shift }}
+        </p>
+        <span>
+          {{ city?.currentWeatherCondition?.weatherForecastDetails!.shiftCondition[1]?.time
+          }}
+        </span>
+      </div>
+      <span [ngClass]="setDividerColorBy(city?.currentWeatherCondition?.code!)"></span>
+      <div class="footer-details"
+        *ngIf="city?.currentWeatherCondition?.weatherForecastDetails?.humidity; else emptyValue">
+        <p>humidity</p>
+        <span>{{ city?.currentWeatherCondition?.weatherForecastDetails?.humidity }}%</span>
+      </div>
+    </div>
+  </footer>
 </main>
 
 <ng-template #emptyValue>

@@ -25,38 +25,19 @@ export function cityAdapter(apiResponse: ApiResponseModel): CityModel {
       minTemperature: apiResponse.forecast.forecastday[0]?.day.mintemp_c,
       time: apiResponse.current.last_updated,
       code: apiResponse.current.condition.code,
+      icon: apiResponse.current.condition.icon,
       weatherForecastDetails: {
         windSpeed: apiResponse.current.wind_kph,
         humidity: apiResponse.current.humidity,
         shiftCondition: [
           {
-            condition:
-              shiftConditionBuild({
-                apiResponse,
-                localTime,
-                hoursToSubtract: 4,
-              })?.condition.text ?? '',
-            time:
-              shiftConditionBuild({
-                apiResponse,
-                localTime,
-                hoursToSubtract: 2,
-              })?.time ?? '',
+            shift: 'sunrise',
+            time: apiResponse.forecast.forecastday[0].astro.sunrise,
           },
           // TODO: Esse valor é relativo a que?
           {
-            condition:
-              shiftConditionBuild({
-                apiResponse,
-                localTime,
-                hoursToSubtract: 4,
-              })?.condition.text ?? '',
-            time:
-              shiftConditionBuild({
-                apiResponse,
-                localTime,
-                hoursToSubtract: 2,
-              })?.time ?? '',
+            shift: 'sunset',
+            time: apiResponse.forecast.forecastday[0].astro.sunset,
           },
         ],
       },
@@ -64,52 +45,66 @@ export function cityAdapter(apiResponse: ApiResponseModel): CityModel {
     forecastDay: [
       {
         shift: 'dawn',
-        temperature: forecastDayBuild({ apiResponse, shiftHours: '03' }) ?? 0,
+        temperature:
+          forecastDayBuild({ apiResponse, shiftHours: '03' })?.temp_c ?? 0,
+        conditionCode:
+          forecastDayBuild({ apiResponse, shiftHours: '03' })?.condition.code ??
+          0,
+        time: forecastDayBuild({ apiResponse, shiftHours: '03' })?.time ?? '',
+        condition:
+          forecastDayBuild({ apiResponse, shiftHours: '03' })?.condition.text ??
+          '',
+        icon:
+          forecastDayBuild({ apiResponse, shiftHours: '03' })?.condition.icon ??
+          '',
       },
       {
         shift: 'morning',
-        temperature: forecastDayBuild({ apiResponse, shiftHours: '09' }) ?? 0,
+        temperature:
+          forecastDayBuild({ apiResponse, shiftHours: '09' })?.temp_c ?? 0,
+        conditionCode:
+          forecastDayBuild({ apiResponse, shiftHours: '09' })?.condition.code ??
+          0,
+        time: forecastDayBuild({ apiResponse, shiftHours: '09' })?.time ?? '',
+        condition:
+          forecastDayBuild({ apiResponse, shiftHours: '09' })?.condition.text ??
+          '',
+        icon:
+          forecastDayBuild({ apiResponse, shiftHours: '09' })?.condition.icon ??
+          '',
       },
       {
         shift: 'afternoon',
-        temperature: forecastDayBuild({ apiResponse, shiftHours: '15' }) ?? 0,
+        temperature:
+          forecastDayBuild({ apiResponse, shiftHours: '15' })?.temp_c ?? 0,
+        conditionCode:
+          forecastDayBuild({ apiResponse, shiftHours: '15' })?.condition.code ??
+          0,
+        time: forecastDayBuild({ apiResponse, shiftHours: '15' })?.time ?? '',
+        condition:
+          forecastDayBuild({ apiResponse, shiftHours: '15' })?.condition.text ??
+          '',
+        icon:
+          forecastDayBuild({ apiResponse, shiftHours: '15' })?.condition.icon ??
+          '',
       },
       {
         shift: 'night',
-        temperature: forecastDayBuild({ apiResponse, shiftHours: '21' }) ?? 0,
+        temperature:
+          forecastDayBuild({ apiResponse, shiftHours: '21' })?.temp_c ?? 0,
+        conditionCode:
+          forecastDayBuild({ apiResponse, shiftHours: '21' })?.condition.code ??
+          0,
+        time: forecastDayBuild({ apiResponse, shiftHours: '21' })?.time ?? '',
+        condition:
+          forecastDayBuild({ apiResponse, shiftHours: '21' })?.condition.text ??
+          '',
+        icon:
+          forecastDayBuild({ apiResponse, shiftHours: '21' })?.condition.icon ??
+          '',
       },
     ],
   };
-}
-
-type ShiftConditionBuildParams = {
-  apiResponse: ApiResponseModel;
-  localTime: string;
-  hoursToSubtract: number;
-};
-
-function shiftConditionBuild(
-  params: ShiftConditionBuildParams
-): Hour | undefined {
-  return params.apiResponse.forecast.forecastday[0]?.hour.find(
-    (dataHours, index) => {
-      let time = dataHours.time
-        .split(WHITESPACE)[1]
-        .split(HOURS_MINUTE_SEPARATOR)[0];
-
-      if (time.length < 2) {
-        time = `0${time}`;
-      }
-
-      if (time === params.localTime) {
-        return params.apiResponse.forecast.forecastday[0].hour[
-          index - params.hoursToSubtract
-        ];
-      }
-
-      return null;
-    }
-  );
 }
 
 type ForecastDayBuildParams = {
@@ -117,7 +112,7 @@ type ForecastDayBuildParams = {
   shiftHours: ShiftHours;
 };
 
-function forecastDayBuild(params: ForecastDayBuildParams): number | undefined {
+function forecastDayBuild(params: ForecastDayBuildParams): Hour | undefined {
   return params.apiResponse.forecast.forecastday[0]?.hour.find(
     (dataHour, index) => {
       const time = dataHour.time
@@ -130,5 +125,5 @@ function forecastDayBuild(params: ForecastDayBuildParams): number | undefined {
 
       return null;
     }
-  )?.temp_c;
+  );
 }

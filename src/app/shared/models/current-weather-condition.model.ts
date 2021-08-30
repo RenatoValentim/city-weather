@@ -8,4 +8,5 @@ export type CurrentWeatherConditionModel = {
   time: string;
   code: number;
   weatherForecastDetails: WeatherForecastDetailsModel;
+  icon: string;
 };

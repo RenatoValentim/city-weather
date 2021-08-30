@@ -1,4 +1,5 @@
 import { cityAdapter } from '../../app/shared/utils/city.adapter';
+import { WEATHER_CONDITION_CODE } from '../../app/city/city.component.config';
 
 export const CITY_MOCK = cityAdapter({
   location: {
@@ -13,14 +14,15 @@ export const CITY_MOCK = cityAdapter({
   },
   current: {
     last_updated_epoch: 1630208700,
-    last_updated: '2021-08-29 01:45',
+    last_updated: '2021-08-29 10:45',
     temp_c: 24.0,
     temp_f: 75.2,
     is_day: 0,
     condition: {
       text: 'Overcast',
       icon: '//cdn.weatherapi.com/weather/64x64/night/122.png',
-      code: 1009,
+      code: WEATHER_CONDITION_CODE.RAIN,
+      // code: 5555,
     },
     wind_mph: 10.5,
     wind_kph: 16.9,

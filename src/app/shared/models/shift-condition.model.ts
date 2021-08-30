@@ -1,4 +1,4 @@
 export type ShiftConditionModel = {
-  condition: string;
+  shift: 'sunrise' | 'sunset';
   time: string;
 };

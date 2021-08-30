@@ -24,6 +24,18 @@ main {
     }
   }
 
+  section.loading {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    align-content: center;
+    height: 100%;
+
+    img {
+      object-fit: none;
+    }
+  }
+
   section div.currentWeather {
     display: flex;
     justify-content: center;
