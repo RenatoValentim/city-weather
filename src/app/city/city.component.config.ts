@@ -30,6 +30,7 @@ export enum ICON_NAME {
   SUN_DARK = 'sun_dark.png',
   SUN_SNOWY_DARK = 'sun_snowy_dark.png',
   WORLD_WHITE = 'world_white.png',
+  WORLD_DARK = 'world_dark.png',
   ARROW_TOP_DARK = 'arrow_top_dark.png',
   MOON_RAIN_DARK = 'moon_rain_dark.png',
   MOON_SNOWY_WHITE = 'moon_snowy_white.png',
