@@ -61,6 +61,10 @@ export class CityComponent implements OnInit {
     return currentHour > 5 && currentHour < 18;
   }
 
+  private notFoundCod(weatherConditionCode: number | undefined): boolean {
+    return !Object.values(WEATHER_CONDITION_CODE).includes(weatherConditionCode!);
+  }
+
   setBackgroundColorBy(weatherConditionCode: number | undefined): string {
     if (this.isLoading) {
       return COLORS.WHITE_SMOKE;
@@ -125,11 +129,17 @@ export class CityComponent implements OnInit {
     weatherCondition: CurrentWeatherConditionModel | undefined
   ): string {
     if (this.isDay(weatherCondition?.time!)) {
+      if (this.notFoundCod(weatherCondition?.code)) {
+        return ICON_NAME.WORLD_DARK;
+      }
+
       return ICON_NAME.SUN_RAIN_WHITE;
     } else {
+      if (this.notFoundCod(weatherCondition?.code)) {
+        return ICON_NAME.WORLD_DARK;
+      }
+
       return ICON_NAME.MOON_RAIN_WHITE;
     }
-
-    return ICON_NAME.WORLD_DARK;
   }
 }

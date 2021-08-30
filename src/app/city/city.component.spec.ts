@@ -371,7 +371,9 @@ function isSnowy(component: CityComponent): boolean {
 }
 
 function notFoundCod(component: CityComponent): boolean {
-  return component.city.currentWeatherCondition.code === 5555;
+  return !Object.values(WEATHER_CONDITION_CODE).includes(
+    component.city.currentWeatherCondition.code
+  );
 }
 
 function isDay(time: string): boolean {
