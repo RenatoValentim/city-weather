@@ -62,7 +62,9 @@ export class CityComponent implements OnInit {
   }
 
   private notFoundCod(weatherConditionCode: number | undefined): boolean {
-    return !Object.values(WEATHER_CONDITION_CODE).includes(weatherConditionCode!);
+    return !Object.values(WEATHER_CONDITION_CODE).includes(
+      weatherConditionCode!
+    );
   }
 
   setBackgroundColorBy(weatherConditionCode: number | undefined): string {
@@ -131,6 +133,10 @@ export class CityComponent implements OnInit {
     if (this.isDay(weatherCondition?.time!)) {
       if (this.notFoundCod(weatherCondition?.code)) {
         return ICON_NAME.WORLD_DARK;
+      }
+
+      if (weatherCondition?.code === WEATHER_CONDITION_CODE.SNOW) {
+        return ICON_NAME.SUN_SNOWY_DARK;
       }
 
       return ICON_NAME.SUN_RAIN_WHITE;
