@@ -1,5 +1,5 @@
 import { cityAdapter } from '../../app/shared/utils/city.adapter';
-import { WEATHER_CONDITION_CODE } from '../../app/city/city.component.config';
+import { WEATHER_CONDITION_CODE, KEYWORDS_WEATHER_CONDITION } from '../../app/city/city.component.config';
 
 export const CITY_MOCK = cityAdapter({
   location: {
@@ -19,8 +19,8 @@ export const CITY_MOCK = cityAdapter({
     temp_f: 75.2,
     is_day: 0,
     condition: {
-      text: 'Overcast',
-      icon: '//cdn.weatherapi.com/weather/64x64/night/122.png',
+      text: KEYWORDS_WEATHER_CONDITION.SUN,
+      icon: '../../assets/images/world_dark.png',
       code: WEATHER_CONDITION_CODE.RAIN,
       // code: 5555,
     },
@@ -206,7 +206,7 @@ export const CITY_MOCK = cityAdapter({
             is_day: 0,
             condition: {
               text: 'Light rain shower',
-              icon: '//cdn.weatherapi.com/weather/64x64/night/353.png',
+              icon: '../../assets/images/world_dark.png',
               code: 1240,
             },
             wind_mph: 9.6,
@@ -440,7 +440,7 @@ export const CITY_MOCK = cityAdapter({
             is_day: 1,
             condition: {
               text: 'Light rain shower',
-              icon: '//cdn.weatherapi.com/weather/64x64/day/353.png',
+              icon: '../../assets/images/world_dark.png',
               code: 1240,
             },
             wind_mph: 13.4,
@@ -674,7 +674,7 @@ export const CITY_MOCK = cityAdapter({
             is_day: 1,
             condition: {
               text: 'Moderate or heavy rain shower',
-              icon: '//cdn.weatherapi.com/weather/64x64/day/356.png',
+              icon: '../../assets/images/world_dark.png',
               code: 1243,
             },
             wind_mph: 11.2,
@@ -908,7 +908,7 @@ export const CITY_MOCK = cityAdapter({
             is_day: 0,
             condition: {
               text: 'Moderate or heavy rain shower',
-              icon: '//cdn.weatherapi.com/weather/64x64/night/356.png',
+              icon: '../../assets/images/world_dark.png',
               code: 1243,
             },
             wind_mph: 7.6,

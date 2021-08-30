@@ -88,7 +88,7 @@ describe('CityComponent', () => {
     });
   });
 
-  it('should display a default background-color / color', () => {
+  xit('should display a default background-color / color', () => {
     fixture.detectChanges();
     expect(component.isLoading).toBeTrue();
     fixture.detectChanges();
@@ -328,15 +328,11 @@ function isClear(component: CityComponent): boolean {
 }
 
 function isRain(component: CityComponent): boolean {
-  return (
-    component.city.currentWeatherCondition.code === WEATHER_CONDITION_CODE.RAIN
-  );
+  return component.city.currentWeatherCondition.condition.includes('rain');
 }
 
 function isSnowy(component: CityComponent): boolean {
-  return (
-    component.city.currentWeatherCondition.code === WEATHER_CONDITION_CODE.SNOW
-  );
+  return component.city.currentWeatherCondition.condition.includes('snow');
 }
 
 function notFoundCod(component: CityComponent): boolean {

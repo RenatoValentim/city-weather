@@ -6,7 +6,7 @@ import { CityService } from '../shared/services/city.service';
 import {
   COLORS,
   ICON_NAME,
-  WEATHER_CONDITION_CODE
+  WEATHER_CONDITION_CODE,
 } from './city.component.config';
 
 @Component({
@@ -43,78 +43,75 @@ export class CityComponent implements OnInit {
     });
   }
 
-  private setColorBack(weatherConditionCode: number): boolean {
-    return !(
-      weatherConditionCode !== WEATHER_CONDITION_CODE.SNOW &&
-      Object.values(WEATHER_CONDITION_CODE).includes(weatherConditionCode!)
+  private setColorBack(weatherConditionCode: string): boolean {
+    weatherConditionCode = weatherConditionCode?.toLocaleLowerCase();
+
+    return (
+      weatherConditionCode?.includes('cloud') ||
+      weatherConditionCode?.includes('snow') ||
+      weatherConditionCode?.includes('mist') ||
+      weatherConditionCode?.includes('sleet') ||
+      weatherConditionCode?.includes('overcast')
     );
   }
 
-  setBackgroundColorBy(weatherConditionCode: number | undefined): string {
-    if (this.isLoading) {
-      return COLORS.WHITE_SMOKE;
+  setBackgroundColorBy(weatherCondition: string | undefined): string {
+    if (this.setColorBack(weatherCondition!) || this.isLoading) {
+      return COLORS.DARK_GRAY;
     }
 
-    if (weatherConditionCode === WEATHER_CONDITION_CODE.SUNNY_OR_CLEAR_NIGHT) {
-      return COLORS.MALIBU;
-    }
-
-    if (weatherConditionCode === WEATHER_CONDITION_CODE.RAIN) {
+    if (weatherCondition?.includes('rain')) {
       return COLORS.BLUE_ZODIAC;
     }
 
-    if (weatherConditionCode === WEATHER_CONDITION_CODE.SNOW) {
-      return COLORS.DARK_GRAY;
+    if (weatherCondition?.includes('sun')) {
+      return COLORS.MALIBU;
     }
 
     return COLORS.WHITE_SMOKE;
   }
 
-  setTextColorBy(weatherConditionCode: number | undefined): string {
-    if (this.isLoading) {
+  setTextColorBy(weatherCondition: string | undefined): string {
+    if (this.setColorBack(weatherCondition!) || this.isLoading) {
       return COLORS.DARK;
     }
 
-    if (!this.setColorBack(weatherConditionCode!)) {
-      return COLORS.WHITE;
-    }
-
-    return COLORS.DARK;
+    return COLORS.WHITE;
   }
 
   goBack(): void {
     this.location.back();
   }
 
-  setButtonArrowBy(weatherConditionCode: number | undefined): string {
-    if (!this.setColorBack(weatherConditionCode!)) {
-      return ICON_NAME.ARROW_LEFT_WHITE;
+  setButtonArrowBy(weatherCondition: string | undefined): string {
+    if (this.setColorBack(weatherCondition!) || this.isLoading) {
+      return ICON_NAME.ARROW_LEFT_DARK;
     }
 
-    return ICON_NAME.ARROW_LEFT_DARK;
+    return ICON_NAME.ARROW_LEFT_WHITE;
   }
 
-  setArrowTopBy(weatherConditionCode: number | undefined): string {
-    if (!this.setColorBack(weatherConditionCode!)) {
-      return ICON_NAME.ARROW_TOP_WHITE;
+  setArrowTopBy(weatherCondition: string | undefined): string {
+    if (this.setColorBack(weatherCondition!) || this.isLoading) {
+      return ICON_NAME.ARROW_TOP_DARK;
     }
 
-    return ICON_NAME.ARROW_TOP_DARK;
+    return ICON_NAME.ARROW_TOP_WHITE;
   }
 
-  setArrowDownBy(weatherConditionCode: number | undefined): string {
-    if (!this.setColorBack(weatherConditionCode!)) {
-      return ICON_NAME.ARROW_DOWN_WHITE;
+  setArrowDownBy(weatherCondition: string | undefined): string {
+    if (this.setColorBack(weatherCondition!) || this.isLoading) {
+      return ICON_NAME.ARROW_DOWN_DARK;
     }
 
-    return ICON_NAME.ARROW_DOWN_DARK;
+    return ICON_NAME.ARROW_DOWN_WHITE;
   }
 
-  setDividerColorBy(weatherCondition: number): string {
+  setDividerColorBy(weatherCondition: string | undefined): string {
     let CSS_CLASS_SEPARATOR: 'separator-white' | 'separator-black' =
       'separator-black';
 
-    if (weatherCondition === WEATHER_CONDITION_CODE.SNOW) {
+    if (!this.setColorBack(weatherCondition!)) {
       CSS_CLASS_SEPARATOR = 'separator-white';
 
       return CSS_CLASS_SEPARATOR;

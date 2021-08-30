@@ -6,7 +6,6 @@ export enum KEYWORDS_WEATHER_CONDITION {
   OVERCAST = 'overcast',
   SNOW = 'snow',
   MIST = 'mist',
-  CLEAR = 'clear',
 }
 
 export enum WEATHER_CONDITION_CODE {

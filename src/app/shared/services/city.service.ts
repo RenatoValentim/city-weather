@@ -18,6 +18,7 @@ export class CityService implements LoadCity {
   loadBy(name: string): Observable<CityModel> {
     const params = new HttpParams().set('q', name).set('api', 'no');
 
+    // TODO: Para testes sem a API
     // return of(CITY_MOCK)
     return this.http
       .get<ApiResponseModel>(environment.URL_API, { params })

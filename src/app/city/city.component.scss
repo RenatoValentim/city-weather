@@ -102,3 +102,67 @@ main {
     }
   }
 }
+
+@media (max-width: 360px) {
+  main {
+    section div.forecasts {
+      width: 100%;
+
+      div {
+        width: 12%;
+      }
+    }
+  }
+
+  footer div {
+    width: 100% !important;
+  }
+}
+
+@media (max-width: 411px) {
+  main {
+    section div.forecasts {
+      width: 100%;
+
+      div {
+        width: 12%;
+      }
+    }
+  }
+
+  footer div {
+    width: 100% !important;
+  }
+}
+
+@media (max-width: 414px) {
+  main {
+    section div.forecasts {
+      width: 100%;
+
+      div {
+        width: 12%;
+      }
+    }
+  }
+
+  footer div {
+    width: 100% !important;
+  }
+}
+
+@media (max-width: 540px) {
+  main {
+    section div.forecasts {
+      width: 100%;
+
+      div {
+        width: 12%;
+      }
+    }
+  }
+
+  footer div {
+    width: 100% !important;
+  }
+}
