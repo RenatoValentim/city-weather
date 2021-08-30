@@ -428,6 +428,22 @@ describe('CityComponent', () => {
     expect(component.city.forecastDay[0].shift).toEqual(shift!);
   });
 
+  it('should display a correctly icon if code no register into the app', () => {
+    fixture.detectChanges();
+    getTestScheduler().flush();
+    cityServiceSpy.loadBy('Recife');
+    fixture.detectChanges();
+    const imagePath = main
+      ?.querySelectorAll('section')
+      .item(2)
+      .querySelector('div .forecasts div img')
+      ?.getAttribute('src');
+
+    if (notFoundCod(component)) {
+      expect(imagePath?.includes('world_dark.png')).toBeTrue();
+    }
+  });
+
   it('should display a correctly forecast icon when to be snowy at day', () => {
     fixture.detectChanges();
     getTestScheduler().flush();
@@ -444,22 +460,6 @@ describe('CityComponent', () => {
       isDay(component.city.currentWeatherCondition.time)
     ) {
       expect(imagePath?.includes('sun_snowy_dark.png')).toBeTrue();
-    }
-  });
-
-  it('should display a correctly icon if code no register into the app', () => {
-    fixture.detectChanges();
-    getTestScheduler().flush();
-    cityServiceSpy.loadBy('Recife');
-    fixture.detectChanges();
-    const imagePath = main
-      ?.querySelectorAll('section')
-      .item(2)
-      .querySelector('div .forecasts div img')
-      ?.getAttribute('src');
-
-    if (notFoundCod(component)) {
-      expect(imagePath?.includes('world_dark.png')).toBeTrue();
     }
   });
 
@@ -517,6 +517,38 @@ describe('CityComponent', () => {
       isDay(component.city.currentWeatherCondition.time)
     ) {
       expect(imagePath?.includes('sun_rain_white.png')).toBeTrue();
+    }
+  });
+
+  it('should display a correctly forecast icon when to be sunny', () => {
+    fixture.detectChanges();
+    getTestScheduler().flush();
+    cityServiceSpy.loadBy('Recife');
+    fixture.detectChanges();
+    const imagePath = main
+      ?.querySelectorAll('section')
+      .item(2)
+      .querySelector('div .forecasts div img')
+      ?.getAttribute('src');
+
+    if (isClear(component) && isDay(component.city.currentWeatherCondition.time)) {
+      expect(imagePath?.includes('sun_white.png')).toBeTrue();
+    }
+  });
+
+  it('should display a correctly forecast icon when to be clear night', () => {
+    fixture.detectChanges();
+    getTestScheduler().flush();
+    cityServiceSpy.loadBy('Recife');
+    fixture.detectChanges();
+    const imagePath = main
+      ?.querySelectorAll('section')
+      .item(2)
+      .querySelector('div .forecasts div img')
+      ?.getAttribute('src');
+
+    if (isClear(component) && !isDay(component.city.currentWeatherCondition.time)) {
+      expect(imagePath?.includes('moon_white.png')).toBeTrue();
     }
   });
 });
