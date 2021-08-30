@@ -126,6 +126,8 @@ export class CityComponent implements OnInit {
   ): string {
     if (this.isDay(weatherCondition?.time!)) {
       return ICON_NAME.SUN_RAIN_WHITE;
+    } else {
+      return ICON_NAME.MOON_RAIN_WHITE;
     }
 
     return ICON_NAME.WORLD_DARK;

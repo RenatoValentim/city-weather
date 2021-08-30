@@ -303,12 +303,13 @@ describe('CityComponent', () => {
       ?.querySelectorAll('section img')
       .item(3)
       .getAttribute('src');
+
     if (notFoundCod(component)) {
       expect(imagePath?.includes('world_dark.png')).toBeTrue();
     }
   });
 
-  it('should display a correctly default middle icon when to be rain at day', () => {
+  it('should display a correctly middle icon when to be rain at day', () => {
     fixture.detectChanges();
     getTestScheduler().flush();
     cityServiceSpy.loadBy('Recife');
@@ -317,8 +318,30 @@ describe('CityComponent', () => {
       ?.querySelectorAll('section img')
       .item(3)
       .getAttribute('src');
-    if (isRain(component) && isDay(component.city.currentWeatherCondition.time)) {
+
+    if (
+      isRain(component) &&
+      isDay(component.city.currentWeatherCondition.time)
+    ) {
       expect(imagePath?.includes('sun_rain_white.png')).toBeTrue();
+    }
+  });
+
+  it('should display a correctly middle icon when to be rain at night', () => {
+    fixture.detectChanges();
+    getTestScheduler().flush();
+    cityServiceSpy.loadBy('Recife');
+    fixture.detectChanges();
+    const imagePath = main
+      ?.querySelectorAll('section img')
+      .item(3)
+      .getAttribute('src');
+
+    if (
+      isRain(component) &&
+      !isDay(component.city.currentWeatherCondition.time)
+    ) {
+      expect(imagePath?.includes('moon_rain_white.png')).toBeTrue();
     }
   });
 });
