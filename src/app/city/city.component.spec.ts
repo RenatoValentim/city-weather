@@ -309,6 +309,21 @@ describe('CityComponent', () => {
     }
   });
 
+  it('should display a correctly middle icon when to be sunny', () => {
+    fixture.detectChanges();
+    getTestScheduler().flush();
+    cityServiceSpy.loadBy('Recife');
+    fixture.detectChanges();
+    const imagePath = main
+      ?.querySelectorAll('section img')
+      .item(3)
+      .getAttribute('src');
+
+    if (isSunny(component)) {
+      expect(imagePath?.includes('sun_white.png')).toBeTrue();
+    }
+  });
+
   it('should display a correctly middle icon when to be rain at day', () => {
     fixture.detectChanges();
     getTestScheduler().flush();
@@ -449,22 +464,6 @@ describe('CityComponent', () => {
       !isDay(component.city.currentWeatherCondition.time)
     ) {
       expect(imagePath?.includes('moon_snowy_dark.png')).toBeTrue();
-    }
-  });
-
-  it('should display a correctly forecast icon when to be sunny', () => {
-    fixture.detectChanges();
-    getTestScheduler().flush();
-    cityServiceSpy.loadBy('Recife');
-    fixture.detectChanges();
-    const imagePath = main
-      ?.querySelectorAll('section')
-      .item(2)
-      .querySelector('div .forecasts div img')
-      ?.getAttribute('src');
-
-    if (isSunny(component)) {
-      expect(imagePath?.includes('sun_white.png')).toBeTrue();
     }
   });
 });
