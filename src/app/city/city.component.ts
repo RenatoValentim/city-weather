@@ -145,6 +145,10 @@ export class CityComponent implements OnInit {
         return ICON_NAME.WORLD_DARK;
       }
 
+      if (weatherCondition?.code === WEATHER_CONDITION_CODE.SNOW) {
+        return ICON_NAME.MOON_SNOWY_DARK;
+      }
+
       return ICON_NAME.MOON_RAIN_WHITE;
     }
   }

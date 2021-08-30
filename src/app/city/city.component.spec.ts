@@ -362,6 +362,24 @@ describe('CityComponent', () => {
       expect(imagePath?.includes('sun_snowy_dark.png')).toBeTrue();
     }
   });
+
+  it('should display a correctly middle icon when to be snowy at night', () => {
+    fixture.detectChanges();
+    getTestScheduler().flush();
+    cityServiceSpy.loadBy('Recife');
+    fixture.detectChanges();
+    const imagePath = main
+      ?.querySelectorAll('section img')
+      .item(3)
+      .getAttribute('src');
+
+    if (
+      isSnowy(component) &&
+      !isDay(component.city.currentWeatherCondition.time)
+    ) {
+      expect(imagePath?.includes('moon_snowy_dark.png')).toBeTrue();
+    }
+  });
 });
 
 class CityServiceSpy implements LoadCity {
