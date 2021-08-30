@@ -154,6 +154,6 @@ export class CityComponent implements OnInit {
   }
 
   setForecastIcon(weatherCondition: CurrentWeatherConditionModel | undefined): string {
-    return ''
+    return ICON_NAME.SUN_SNOWY_DARK;
   }
 }

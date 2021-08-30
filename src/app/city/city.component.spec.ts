@@ -381,7 +381,7 @@ describe('CityComponent', () => {
     }
   });
 
-  it('should display a correctly city temperature', () => {
+  it('should display a correctly forecast shit', () => {
     fixture.detectChanges();
     getTestScheduler().flush();
     fixture.detectChanges();
@@ -391,10 +391,30 @@ describe('CityComponent', () => {
       shift = main
         ?.querySelectorAll('section')
         .item(2)
-        .querySelector('div .forecasts div span')?.textContent?.trim();
+        .querySelector('div .forecasts div span')
+        ?.textContent?.trim();
     }
 
     expect(component.city.forecastDay[0].shift).toEqual(shift!);
+  });
+
+  it('should display a correctly icon when to be snowy at day', () => {
+    fixture.detectChanges();
+    getTestScheduler().flush();
+    cityServiceSpy.loadBy('Recife');
+    fixture.detectChanges();
+    const imagePath = main
+      ?.querySelectorAll('section')
+      .item(2)
+      .querySelector('div .forecasts div img')
+      ?.getAttribute('src');
+
+    if (
+      isSnowy(component) &&
+      isDay(component.city.currentWeatherCondition.time)
+    ) {
+      expect(imagePath?.includes('sun_snowy_dark.png')).toBeTrue();
+    }
   });
 });
 

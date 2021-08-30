@@ -43,6 +43,7 @@
           <span *ngIf="city.forecastDay[0]?.shift; else emptyValue">
             {{ city.forecastDay[0]?.shift }}
           </span>
+          <img [src]="imagePath + setForecastIcon(city?.currentWeatherCondition)" alt="Sun">
         </div>
       </div>
     </section>
