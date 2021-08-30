@@ -324,6 +324,21 @@ describe('CityComponent', () => {
     }
   });
 
+  it('should display a correctly middle icon when to be clear night', () => {
+    fixture.detectChanges();
+    getTestScheduler().flush();
+    cityServiceSpy.loadBy('Recife');
+    fixture.detectChanges();
+    const imagePath = main
+      ?.querySelectorAll('section img')
+      .item(3)
+      .getAttribute('src');
+
+    if (isClear(component) && !isDay(component.city.currentWeatherCondition.time)) {
+      expect(imagePath?.includes('moon_white.png')).toBeTrue();
+    }
+  });
+
   it('should display a correctly middle icon when to be rain at day', () => {
     fixture.detectChanges();
     getTestScheduler().flush();
