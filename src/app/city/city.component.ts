@@ -156,10 +156,22 @@ export class CityComponent implements OnInit {
   setForecastIcon(
     weatherCondition: CurrentWeatherConditionModel | undefined
   ): string {
-    if (this.notFoundCod(weatherCondition?.code)) {
-      return ICON_NAME.WORLD_DARK;
-    }
+    if (this.isDay(weatherCondition?.time!)) {
+      if (this.notFoundCod(weatherCondition?.code)) {
+        return ICON_NAME.WORLD_DARK;
+      }
 
-    return ICON_NAME.SUN_SNOWY_DARK;
+      return ICON_NAME.SUN_SNOWY_DARK;
+    } else {
+      if (this.notFoundCod(weatherCondition?.code)) {
+        return ICON_NAME.WORLD_DARK;
+      }
+
+      if (weatherCondition?.code === WEATHER_CONDITION_CODE.SNOW) {
+        return ICON_NAME.MOON_SNOWY_DARK;
+      }
+
+      return ICON_NAME.SUN_SNOWY_DARK;
+    }
   }
 }
