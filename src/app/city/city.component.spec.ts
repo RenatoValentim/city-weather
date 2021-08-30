@@ -293,6 +293,17 @@ describe('CityComponent', () => {
       expect(imagePath?.includes('arrow_down_dark.png')).toBeTrue();
     }
   });
+
+  it('should display a correctly default middle icon', () => {
+    fixture.detectChanges();
+    getTestScheduler().flush();
+    cityServiceSpy.loadBy('Recife');
+    fixture.detectChanges();
+    const imagePath = main?.querySelectorAll('section img').item(3).getAttribute('src');
+    if (notFoundCod(component)) {
+      expect(imagePath?.includes('world_dark.png')).toBeTrue();
+    }
+  });
 });
 
 class CityServiceSpy implements LoadCity {

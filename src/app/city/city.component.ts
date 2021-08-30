@@ -113,4 +113,8 @@ export class CityComponent implements OnInit {
 
     return ICON_NAME.ARROW_DOWN_DARK;
   }
+
+  setMiddleIconBy(weatherConditionCode: number | undefined): string {
+    return ICON_NAME.WORLD_DARK;
+  }
 }

@@ -25,8 +25,7 @@
         <div class="temperatures">
           <span>°C</span>
           <div *ngIf="city?.currentWeatherCondition?.maxTemperature; else emptyValue">
-            <img [src]="imagePath + setArrowTopBy(city?.currentWeatherCondition?.code)"
-              alt="Arrow top max temperature">
+            <img [src]="imagePath + setArrowTopBy(city?.currentWeatherCondition?.code)" alt="Arrow top max temperature">
             <span>{{ city?.currentWeatherCondition?.maxTemperature }}°</span>
           </div>
           <div *ngIf="city?.currentWeatherCondition?.minTemperature; else emptyValue">
@@ -37,6 +36,7 @@
         </div>
       </div>
     </section>
+    <img [src]="imagePath + setMiddleIconBy(city?.currentWeatherCondition?.code)" alt="Current weather icon">
   </section>
 </main>
 
