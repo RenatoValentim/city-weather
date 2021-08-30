@@ -44,6 +44,9 @@
             {{ city.forecastDay[0]?.shift }}
           </span>
           <img [src]="imagePath + setForecastIcon(city?.currentWeatherCondition)" alt="Sun">
+          <span *ngIf="city.forecastDay[0]?.temperature; else emptyValue">
+            {{ city.forecastDay[0]?.temperature }}°C
+          </span>
         </div>
       </div>
     </section>

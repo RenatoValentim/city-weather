@@ -319,7 +319,10 @@ describe('CityComponent', () => {
       .item(3)
       .getAttribute('src');
 
-    if (isClear(component) && isDay(component.city.currentWeatherCondition.time)) {
+    if (
+      isClear(component) &&
+      isDay(component.city.currentWeatherCondition.time)
+    ) {
       expect(imagePath?.includes('sun_white.png')).toBeTrue();
     }
   });
@@ -334,7 +337,10 @@ describe('CityComponent', () => {
       .item(3)
       .getAttribute('src');
 
-    if (isClear(component) && !isDay(component.city.currentWeatherCondition.time)) {
+    if (
+      isClear(component) &&
+      !isDay(component.city.currentWeatherCondition.time)
+    ) {
       expect(imagePath?.includes('moon_white.png')).toBeTrue();
     }
   });
@@ -531,7 +537,10 @@ describe('CityComponent', () => {
       .querySelector('div .forecasts div img')
       ?.getAttribute('src');
 
-    if (isClear(component) && isDay(component.city.currentWeatherCondition.time)) {
+    if (
+      isClear(component) &&
+      isDay(component.city.currentWeatherCondition.time)
+    ) {
       expect(imagePath?.includes('sun_white.png')).toBeTrue();
     }
   });
@@ -547,9 +556,31 @@ describe('CityComponent', () => {
       .querySelector('div .forecasts div img')
       ?.getAttribute('src');
 
-    if (isClear(component) && !isDay(component.city.currentWeatherCondition.time)) {
+    if (
+      isClear(component) &&
+      !isDay(component.city.currentWeatherCondition.time)
+    ) {
       expect(imagePath?.includes('moon_white.png')).toBeTrue();
     }
+  });
+
+  it('should display a correctly forecast temperature', () => {
+    fixture.detectChanges();
+    getTestScheduler().flush();
+    fixture.detectChanges();
+
+    let temperature: string | null | undefined;
+    if (main) {
+      temperature = main
+        ?.querySelectorAll('section')
+        .item(2)
+        .querySelectorAll('div .forecasts div span')
+        .item(1)
+        ?.textContent?.trim()
+        .split('°')[0];
+    }
+
+    expect(component.city.forecastDay[0].temperature).toEqual(+temperature!);
   });
 });
 
@@ -561,7 +592,8 @@ class CityServiceSpy implements LoadCity {
 
 function isClear(component: CityComponent): boolean {
   return (
-    component.city.currentWeatherCondition.code === WEATHER_CONDITION_CODE.SUNNY_OR_CLEAR_NIGHT
+    component.city.currentWeatherCondition.code ===
+    WEATHER_CONDITION_CODE.SUNNY_OR_CLEAR_NIGHT
   );
 }
 
