@@ -416,6 +416,22 @@ describe('CityComponent', () => {
       expect(imagePath?.includes('sun_snowy_dark.png')).toBeTrue();
     }
   });
+
+  it('should display a correctly icon if code no register into the app', () => {
+    fixture.detectChanges();
+    getTestScheduler().flush();
+    cityServiceSpy.loadBy('Recife');
+    fixture.detectChanges();
+    const imagePath = main
+      ?.querySelectorAll('section')
+      .item(2)
+      .querySelector('div .forecasts div img')
+      ?.getAttribute('src');
+
+    if (notFoundCod(component)) {
+      expect(imagePath?.includes('world_dark.png')).toBeTrue();
+    }
+  });
 });
 
 class CityServiceSpy implements LoadCity {

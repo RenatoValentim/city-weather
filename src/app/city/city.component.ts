@@ -153,7 +153,13 @@ export class CityComponent implements OnInit {
     }
   }
 
-  setForecastIcon(weatherCondition: CurrentWeatherConditionModel | undefined): string {
+  setForecastIcon(
+    weatherCondition: CurrentWeatherConditionModel | undefined
+  ): string {
+    if (this.notFoundCod(weatherCondition?.code)) {
+      return ICON_NAME.WORLD_DARK;
+    }
+
     return ICON_NAME.SUN_SNOWY_DARK;
   }
 }
